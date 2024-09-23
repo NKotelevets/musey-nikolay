@@ -6,7 +6,7 @@ const App = () => {
     const botConfig = {
         composerPlaceholder: "Speak with Lieutenant Ray",
         botName: "Lieutenant Ray",
-        showPoweredBy: true,
+        showPoweredBy: false,
         botAvatar: "https://files.bpcontent.cloud/2024/09/09/15/20240909151533-394Z5SY7.jpeg",
         botDescription: "Note: Ray speaks old Dutch from 1945",
         email: {
@@ -34,7 +34,7 @@ const App = () => {
 
     const botClientId = '819aeef3-bd6c-46ed-9437-29c0430ab254';
     const localisation = 'nl-NL';  // Dutch for localization
-    const voiceName = 'nl-NL-MaartenNeural'; // Example Dutch voice
+    const voiceName = 'en-US-AndrewMultilingualNeural';
     const subscriptionKey = "9759ac1e676e48979e69322ab3840add"
     const region="northeurope"
     const desiredDuration = 20000;

@@ -27,11 +27,9 @@ const ChatComponent = ({ botConfig, botClientId, localisation, voiceName, subscr
         client.on('customEvent', async (event) => {
             console.log('Received event:', event.id);
             
-           
-            var delayInMilliseconds = 4000; //1 second
+            var delayInMilliseconds = 2000;
 
             setTimeout(function () {
-                //your code to be executed after 1 second
                 textToSpeech(event.ttsMessage);
             }, delayInMilliseconds);
         });
