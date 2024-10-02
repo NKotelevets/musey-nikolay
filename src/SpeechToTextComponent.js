@@ -23,6 +23,12 @@ const SpeechToTextComponent = ({ elementId, locale = "en-US", subscriptionKey, r
       return;
     }
 
+    if (recognizer) {
+      console.log("Recognizer already exists.");
+      recognizer.startContinuousRecognitionAsync();
+      return;
+    }
+
     // Azure Speech SDK Configuration
     const speechConfig = sdk.SpeechConfig.fromSubscription(subscriptionKey, region);
     speechConfig.speechRecognitionLanguage = locale;
@@ -32,8 +38,8 @@ const SpeechToTextComponent = ({ elementId, locale = "en-US", subscriptionKey, r
     const speechRecognizer = new sdk.SpeechRecognizer(speechConfig, audioConfig);
 
     speechRecognizer.recognizing = (sender, event) => {
+      // Optionally update live as the speech is recognized
       updateHtmlElement(`${event.result.text}`);
-      resetSilenceTimer(event.result.text); // Reset timer on recognizing speech
     };
 
     speechRecognizer.recognized = async (sender, event) => {
@@ -61,7 +67,11 @@ const SpeechToTextComponent = ({ elementId, locale = "en-US", subscriptionKey, r
 
   const stopListening = () => {
     if (recognizer) {
-      recognizer.stopContinuousRecognitionAsync();
+      recognizer.stopContinuousRecognitionAsync(() => {
+        console.log("Recognition stopped.");
+      }, (error) => {
+        console.error("Error stopping recognition:", error);
+      });
     }
     clearSilenceTimer(); // Clear timer when stopping
   };
@@ -86,7 +96,7 @@ const SpeechToTextComponent = ({ elementId, locale = "en-US", subscriptionKey, r
     if (finalText) {
       updateHtmlElement(`Final recognized text: ${finalText}`);
       await botpressClient.sendMessage(finalText); // Send to botpress or other service
-      updateHtmlElement(`verzonden`);
+      updateHtmlElement(`Sent to botpress`);
     }
   };
 

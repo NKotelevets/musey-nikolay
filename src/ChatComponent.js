@@ -25,7 +25,7 @@ const ChatComponent = ({ botConfig, botClientId, localisation, voiceName, subscr
 
     useEffect(() => {
         client.on('customEvent', async (event) => {
-            console.log('Received event:', event.id);
+            console.log('Received event:', event);
             
             var delayInMilliseconds = 2000;
 
