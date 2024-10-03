@@ -8,7 +8,7 @@ const App = () => {
         botName: "Lieutenant Ray",
         showPoweredBy: false,
         botAvatar: "https://files.bpcontent.cloud/2024/09/09/15/20240909151533-394Z5SY7.jpeg",
-        botDescription: "Note: Ray speaks old Dutch from 1945",
+        botDescription: "Praat met D-Day veteraan Lt. Ray Lanterman",
         email: {
             title: "randomEmail@boptress.com",
             link: "mailto:randomEmail@boptress.com",

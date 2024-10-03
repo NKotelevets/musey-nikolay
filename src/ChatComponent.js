@@ -52,39 +52,6 @@ const ChatComponent = ({ botConfig, botClientId, localisation, voiceName, subscr
         textToSpeech(value);
       };
 
-    // const sendEvent = async (eventName, message) => {
-    //     try {
-    //         const event = {
-    //             type: eventName,
-    //             body: message, // Arbitrary event type
-    //         };
-
-    //         textToSpeech(message);
-    //         await client.sendEvent(event);
-    //     } catch (error) {
-    //         console.error('Error sending event to Botpress:', error);
-    //     }
-    // };
-
-    // const sttFromMic = async () => {
-    //     const tokenObj = await getTokenOrRefresh();
-    //     const speechConfig = speechsdk.SpeechConfig.fromAuthorizationToken(tokenObj.authToken, tokenObj.region);
-    //     speechConfig.speechRecognitionLanguage = localisation;
-
-    //     const audioConfig = speechsdk.AudioConfig.fromDefaultMicrophoneInput();
-    //     const recognizer = new speechsdk.SpeechRecognizer(speechConfig, audioConfig);
-
-    //     setStatusText('Speak into your microphone...');
-
-    //     recognizer.recognizeOnceAsync(async (result) => {
-    //         if (result.reason === ResultReason.RecognizedSpeech) {
-    //             await client.sendMessage(result.text);
-    //             setStatusText(`RECOGNIZED: Text=${result.text}`);
-    //         } else {
-    //             setStatusText('ERROR: Speech was cancelled or could not be recognized.');
-    //         }
-    //     });
-    // };
 
     const calculateDurationFromText = (textToSpeak) => {
         const words = textToSpeak.split(/\s+/).length; // Split by whitespace to count words
