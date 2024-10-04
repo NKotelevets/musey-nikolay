@@ -35,8 +35,9 @@ const App = () => {
     const botClientId = '819aeef3-bd6c-46ed-9437-29c0430ab254';
     const localisation = 'nl-NL';  // Dutch for localization
     const voiceName = 'en-US-AndrewMultilingualNeural';
-    const subscriptionKey = "9759ac1e676e48979e69322ab3840add"
-    const region="northeurope"
+    const subscriptionKey = "e48f41ab6410444bb4388f148f47da3b";//"9759ac1e676e48979e69322ab3840add"
+    
+    const region="westeurope";//"northeurope"
     const desiredDuration = 20000;
 
     return (
