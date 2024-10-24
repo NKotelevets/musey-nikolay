@@ -1,0 +1,88 @@
+.bpMessageContainer {
+    opacity:0.3;
+}
+
+.bpMessageContainer[data-direction=incoming]:last-of-type {
+    background-color: yellow;
+    position:fixed;
+    bottom:0;
+    left:0;
+    font-size: 1.5rem;
+    line-height: 1em;
+    width:50vh;
+    gap:1em;
+    padding:2rem;
+    opacity:1;
+}
+
+.bpMessageContainer[data-direction=incoming]:last-of-type:before {
+    content: 'dit zijn ondertitels';
+    position: absolute;
+    font-size:1rem;
+    top: 0;
+}
+]
+
+/*[data-direction=incoming]*/
+
+.bpMessageContainer[data-direction=incoming]:last-of-type .bpMessageBlocksBubble {
+    width:-webkit-fill-available;
+    background: none!important;
+    max-width: none;
+}
+
+.bpMessageContainer[data-direction=incoming]:last-of-type .bpMessageAvatarContainer {
+    display: none!important;
+}
+
+.bpMessageContainer[data-direction=incoming]:has(.bpMessageBlocksRow):last-of-type,
+.bpMessageContainer[data-direction=incoming]:has(.bpMessageBlocksDropdownButtonContainer):last-of-type {
+    background-color:orange;
+    aspect-ratio:1;
+   
+}
+.bpMessageContainer[data-direction=incoming]:has(.bpMessageBlocksRow):last-of-type:before,
+.bpMessageContainer[data-direction=incoming]:has(.bpMessageBlocksDropdownButtonContainer):last-of-type:before {
+    content: 'dit komt op een scherm';
+}
+
+.bpMessageContainer[data-direction=incoming]:has(.bpTypingIndicatorContainer):last-of-type {
+    background-color:red;
+    aspect-ratio:1;
+    width:10rem;
+    left:auto;
+    right:0;
+}
+
+.bpMessageContainer[data-direction=incoming]:has(.bpTypingIndicatorContainer):last-of-type:before {
+    content:"dit is een lampje";
+}
+
+.bpMessageContainer[data-direction=incoming]:has(.bpMessageBlocksRow):last-of-type .bpMessageBlocksRow {
+    width:100%;
+    display:flex;
+    align-content: stretch;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: stretch;
+}
+
+.bpMessageContainer[data-direction=incoming]:has(.bpMessageBlocksRow):last-of-type button {
+    width: 45%;
+    padding: 3rem;
+}
+
+.bpComposerContainer {
+    position:fixed;
+    bottom:50%;
+    right:0;
+    padding:2rem;
+    width:33%;
+    transform:translateY(50%);
+}
+
+.bpContainer {
+  
+    background-color: transparent!important;
+}
