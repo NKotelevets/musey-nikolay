@@ -1,88 +1,116 @@
-.bpMessageContainer {
-    opacity:0.3;
+
+.background {
+    background-image: url("../images/bg.jpg");
+    background-size: 100%;
+    width: 100%;
+    height: 100%;
+}
+
+#screen {
+    position: fixed;
+    left: 10vh;
+    top:10vh;
+    height:80vh;
+    aspect-ratio: 1;
+    background-image: url("../images/screen.png");
+    background-size: contain;
+ 
+}
+
+#screen:before,
+#screen:after,
+#screen *:before,
+#screen *:after {
+    content:"";
+   width:100%;
+   height:100%;
+   position:absolute;
+   top:0;
+   left:0;
+}
+
+#screen:after {
+      background-image: url("../images/shine.png");
+      background-repeat:no-repeat;
+      background-size:60%;
+      background-position:center 20%;
+      mix-blend-mode: overlay;
+}
+
+#screen #video {
+    width: 61vh;
+    aspect-ratio: 1;
+    left: 10vh;
+    position: absolute;
+    top: 9vh;
+    border-radius: 3vh;
+    border: #4d3535 1vh solid;
+    background: #432c2f;
+    /* mix-blend-mode: overlay; */
+}
+
+#screen #video video {
+    mix-blend-mode: lighten;
+    object-fit: cover;
+    width:100%;
+    height:100%;
+    border-radius: 2vh;
+    filter: brightness(1.1) contrast(1);
+}
+
+#screen #video:before {
+    box-shadow: 0 0 20vh #ff7600;
+    mix-blend-mode: overlay;
+    opacity: .7;
+    border-radius: 2vh;
+    background: url(../images/crt.jpg);
+    background-size: cover;
+    z-index: 10;
+    opacity: .4;
+}
+
+#screen #video:after {
+   box-shadow: inset 0 0 10vh #fbba00ed;
+   mix-blend-mode: lighten;
+   opacity: .4;
+   border-radius: 2vh;
+}
+
+
+/**** UI ****/
+
+#root {
+    position: absolute;
+}
+
+.main-container {
+    margin:0;
+    padding:1vw;
+    padding-left: 51vw;
+    width: 100vw;
+}
+
+:root {
+  --outline-width: .14vh;
+    --outline-width-neg:calc(-1 * var(--outline-width));
 }
 
 .bpMessageContainer[data-direction=incoming]:last-of-type {
-    background-color: yellow;
-    position:fixed;
-    bottom:0;
-    left:0;
-    font-size: 1.5rem;
-    line-height: 1em;
-    width:50vh;
-    gap:1em;
-    padding:2rem;
-    opacity:1;
+   position: fixed;
+   bottom:20vh;
+   left:20vh;
+   font-size: 1.5rem;
+   line-height: 1em;
+   width:60vh;
+   gap:1em;
+   padding:2rem;
+   opacity:1;
+   color: #f0f0f0;
+   text-shadow:var(--outline-width) var(--outline-width) 0 black, var(--outline-width-neg) var(--outline-width-neg) 0 black, var(--outline-width) var(--outline-width-neg) 0 black, var(--outline-width-neg) var(--outline-width) 0 black;
+   mix-blend-mode: hard-light;
 }
 
-.bpMessageContainer[data-direction=incoming]:last-of-type:before {
-    content: 'dit zijn ondertitels';
-    position: absolute;
-    font-size:1rem;
-    top: 0;
-}
-]
+.bpMessageContainer[data-direction=incoming] .bpMessageBlocksBubble {
+    color: inherit!important;
 
-/*[data-direction=incoming]*/
-
-.bpMessageContainer[data-direction=incoming]:last-of-type .bpMessageBlocksBubble {
-    width:-webkit-fill-available;
-    background: none!important;
-    max-width: none;
-}
-
-.bpMessageContainer[data-direction=incoming]:last-of-type .bpMessageAvatarContainer {
-    display: none!important;
-}
-
-.bpMessageContainer[data-direction=incoming]:has(.bpMessageBlocksRow):last-of-type,
-.bpMessageContainer[data-direction=incoming]:has(.bpMessageBlocksDropdownButtonContainer):last-of-type {
-    background-color:orange;
-    aspect-ratio:1;
-   
-}
-.bpMessageContainer[data-direction=incoming]:has(.bpMessageBlocksRow):last-of-type:before,
-.bpMessageContainer[data-direction=incoming]:has(.bpMessageBlocksDropdownButtonContainer):last-of-type:before {
-    content: 'dit komt op een scherm';
-}
-
-.bpMessageContainer[data-direction=incoming]:has(.bpTypingIndicatorContainer):last-of-type {
-    background-color:red;
-    aspect-ratio:1;
-    width:10rem;
-    left:auto;
-    right:0;
-}
-
-.bpMessageContainer[data-direction=incoming]:has(.bpTypingIndicatorContainer):last-of-type:before {
-    content:"dit is een lampje";
-}
-
-.bpMessageContainer[data-direction=incoming]:has(.bpMessageBlocksRow):last-of-type .bpMessageBlocksRow {
-    width:100%;
-    display:flex;
-    align-content: stretch;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: stretch;
-}
-
-.bpMessageContainer[data-direction=incoming]:has(.bpMessageBlocksRow):last-of-type button {
-    width: 45%;
-    padding: 3rem;
-}
-
-.bpComposerContainer {
-    position:fixed;
-    bottom:50%;
-    right:0;
-    padding:2rem;
-    width:33%;
-    transform:translateY(50%);
-}
-
-.bpContainer {
-  
-    background-color: transparent!important;
 }
