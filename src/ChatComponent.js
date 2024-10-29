@@ -5,6 +5,10 @@ import { ResultReason } from 'microsoft-cognitiveservices-speech-sdk';
 import { Container, Header, MessageList, Composer, WebchatProvider, getClient } from '@botpress/webchat';
 import { buildTheme } from '@botpress/webchat-generator';
 import SpeechToTextComponent from './SpeechToTextComponent'; // Adjust the path according to your file structure
+import ToggleButton from './ToggleButton';
+import VideoPlayer  from './VideoPlayer';
+import NameDisplay from './NameDisplay'
+import StatusIndicator from './StatusIndicator';
 
 const speechsdk = require('microsoft-cognitiveservices-speech-sdk');
 
@@ -34,6 +38,14 @@ const ChatComponent = ({ botConfig, botClientId, localisation, voiceName, subscr
             }, delayInMilliseconds);
         });
     },[]);
+    const videoUrl = "https://www.example.com/path/to/video.mp4";
+
+    const [isOn, setIsOn] = useState(false);
+
+    const toggleStatus = () => {
+      setIsOn((prevStatus) => !prevStatus);
+    };
+
 
     const handleTextareaChange = (event) => {
         setTextareaValue(event.target.value);
@@ -124,49 +136,13 @@ const ChatComponent = ({ botConfig, botClientId, localisation, voiceName, subscr
             }
         );
     };
-//     const textToSpeech = async (textToSpeak) => {
-//         const tokenObj = await getTokenOrRefresh();
-//         const speechConfig = speechsdk.SpeechConfig.fromAuthorizationToken(tokenObj.authToken, tokenObj.region);
-//         speechConfig.speechSynthesisLanguage = localisation;
-//         speechConfig.speechSynthesisVoiceName = voiceName;
+    const handleToggle = (isOn) => {
+        console.log(`Toggle is now ${isOn ? 'ON' : 'OFF'}`);
+    };
 
-//         const myPlayer = new speechsdk.SpeakerAudioDestination();
-//         if (myPlayer) {
-//             updatePlayer((p) => ({ p: myPlayer }));
-//         }
-//         const audioConfig = speechsdk.AudioConfig.fromSpeakerOutput(player.p);
-
-//         let synthesizer = new speechsdk.SpeechSynthesizer(speechConfig, audioConfig);
-
-//         setStatusText(`Speaking text: ${textToSpeak}...`);
-
-//         const ssmlMessage = `
-//             <speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis" xml:lang="${localisation}">
-//               <voice name="${voiceName}">
-//                 ${textToSpeak}
-//               </voice>
-//             </speak>
-//         `;
-// console.log(ssmlMessage);
-//         synthesizer.speakSsmlAsync(
-//             ssmlMessage,
-//             (result) => {
-//                 if (result.reason === speechsdk.ResultReason.SynthesizingAudioCompleted) {
-                   
-//                     setStatusText(`Synthesis finished`);
-//                 } else if (result.reason === speechsdk.ResultReason.Canceled) {
-//                     setStatusText(`Synthesis failed. Error detail: ${result.errorDetails}.`);
-//                 }
-//                 synthesizer.close();
-//                 synthesizer = undefined;
-//             },
-//             (err) => {
-//                 setStatusText(`Error: ${err}.`);
-//                 synthesizer.close();
-//                 synthesizer = undefined;
-//             }
-//         );
-//     };
+    const handleOnAction = () => {
+        console.log('Action performed because the toggle is ON');
+    };
 
     const handleMute = () => {
         updatePlayer((p) => {
@@ -190,6 +166,13 @@ const ChatComponent = ({ botConfig, botClientId, localisation, voiceName, subscr
 
             <div className="row main-container">
                 <div className="col-6">
+                <div>
+                    <h1>Status Indicator Example</h1>
+                    <StatusIndicator status={isOn} />
+                    <button onClick={toggleStatus}>
+                        {isOn ? 'Turn Off' : 'Turn On'}
+                    </button>
+                </div>
                     <div class="form-group">
                         <label for="exampleFormControlTextarea1">Testen van de speech to tekst</label>
                         <textarea class="form-control" value={textareaValue}
@@ -231,8 +214,8 @@ const ChatComponent = ({ botConfig, botClientId, localisation, voiceName, subscr
 
           
                     <div>
-                       
-                      
+            
+                    <VideoPlayer videoSrc={videoUrl} />
                        
                        
 
@@ -249,7 +232,27 @@ const ChatComponent = ({ botConfig, botClientId, localisation, voiceName, subscr
                             <Composer />
                         </Container>
                     </WebchatProvider>
+                    <ToggleButton
+                        onToggle={handleToggle}
+                        onAction={handleOnAction}
+                        title="Toggle Toetsenbord"
+                    />
+                            <ToggleButton
+                        onToggle={handleToggle}
+                        onAction={handleOnAction}
+                        title="Toggle Persoon"
+                    />
+                            <ToggleButton
+                        onToggle={handleToggle}
+                        onAction={handleOnAction}
+                        title="Toggle Ondertitels"
+                    />
+
                 </div>
+                <div>
+                <NameDisplay name={'smurf'} />
+                </div>
+            
             </div>
             <div style={{ width: '100vw', height: '100vh' }}>
                 <style>{style}</style>
