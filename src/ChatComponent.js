@@ -38,7 +38,7 @@ const ChatComponent = ({ botConfig, botClientId, localisation, voiceName, subscr
             }, delayInMilliseconds);
         });
     },[]);
-    const videoUrl = "https://www.example.com/path/to/video.mp4";
+    const videoUrl = "./video/dummy.mov";
 
     const [isOn, setIsOn] = useState(false);
 

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 const VideoPlayer = ({ videoSrc }) => {
   return (
     <div className="video-player">
-      <video controls width="100%" height="auto">
+      <video  width="100%" height="auto"  autoplay="1" loop>
         <source src={videoSrc} type="video/mp4" />
         Your browser does not support the video tag.
       </video>
