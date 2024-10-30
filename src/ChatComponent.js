@@ -213,9 +213,9 @@ const ChatComponent = ({ botConfig, botClientId, localisation, voiceName, subscr
 
 
           
-                    <div>
+                    <div id="screen">
             
-                    <VideoPlayer videoSrc={videoUrl} />
+                    <VideoPlayer videoSrc={videoUrl} autoPlay/>
                        
                        
 
