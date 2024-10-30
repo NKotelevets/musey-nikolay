@@ -135,7 +135,7 @@
     /**** UI ****/
     
     #root {
-      position: absolute;
+      /*position: absolute;*/
     }
     
     .main-container {
