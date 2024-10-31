@@ -258,6 +258,7 @@ const ChatComponent = ({ botConfig, botClientId, localisation, voiceName, subscr
                 <style>{style}</style>
             </div>
             <div id="shine"></div>
+            <div class="simple-keyboard"></div>
         </div>
     );
 };

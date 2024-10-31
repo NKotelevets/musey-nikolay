@@ -17,6 +17,7 @@
     "react-dom": "^18.0.1",
     "react-scripts": "5.0.1",
     "reactstrap": "^9.2.0",
+    "simple-keyboard": "^3.8.12",
     "universal-cookie": "^4.0.4",
     "web-vitals": "^3.3.2"
   },

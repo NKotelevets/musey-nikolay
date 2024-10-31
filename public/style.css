@@ -25,10 +25,11 @@ body,
 
 
 
-button.btn {
+button.btn,
+.hg-button{
     background-color: transparent!important;
     border: 4vh solid;
-    border-image: url("../images/btn_up.png") 110 fill;
+    border-image: url("../images/btn_up.png") 110 fill!important;
     /* mix-blend-mode: multiply; */
     background-blend-mode: multiply;
     transition: 0.2s;
@@ -42,6 +43,14 @@ button.btn {
     text-shadow: 0 0 1vh #ded3bb;
     line-height:1.5vw;
 }
+.hg-button {
+   border-width: 2vh;
+   padding:0.3vh!important;
+   font-size: 1.2vh!important;
+  border-bottom:2vh solid !important;
+  
+}
+
     button.btn .fas {
         font-size: 2vw;
         margin-right:0.5vw;
@@ -71,9 +80,11 @@ input[type=text],
 color: #b74a13!important;
 }
 
+
+.hg-button:active,
 button.btn:active,
 button.btn:hover{
-border-image-source: url("../images/btn_down.png");
+border-image-source: url("../images/btn_down.png")!important;
 mix-blend-mode: hard-light;
 padding-top: 2.2vh;
 padding-bottom: 1.8vh;
@@ -284,4 +295,17 @@ max-width: 46%;
 .bpMessageContainer[data-direction=incoming]:has(.bpMessageBlocksRow):last-of-type button:hover {
 background-color: #ffbd0070;
 color:black;
+
+
 }
+
+/***KEYBOARD***/
+  .simple-keyboard {
+      width: 45vw!important;
+      height: 29vh;
+      position:fixed;
+      right:0;
+      left:auto;
+      bottom:10vh;
+      z-index: 9999;
+  }
