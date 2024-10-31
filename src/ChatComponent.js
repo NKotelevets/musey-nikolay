@@ -215,8 +215,8 @@ const ChatComponent = ({ botConfig, botClientId, localisation, voiceName, subscr
           
                     <div id="screen">
             
-                    <VideoPlayer videoSrc={videoUrl} autoPlay/>
-                       
+                    <VideoPlayer videoSrc={videoUrl}/>
+                      
                        
 
                 
@@ -257,6 +257,7 @@ const ChatComponent = ({ botConfig, botClientId, localisation, voiceName, subscr
             <div style={{ width: '100vw', height: '100vh' }}>
                 <style>{style}</style>
             </div>
+            <div id="shine"></div>
         </div>
     );
 };

@@ -12,6 +12,8 @@ ReactDOM.render(
 );
 
 
+
+
 //Stukje voor geluidseffecten :-)
 
 var arrSfxKeyDown = new Array();
@@ -22,9 +24,6 @@ var curId = 0;
 var numKeys = 4;
 var numSwitches = 2;
 var hadInteraction = false;
-
-//jQuery(document).ready(function() {
- 
 
   for(var i = 0; i < numKeys; i++) {
 
@@ -70,4 +69,3 @@ var hadInteraction = false;
 
   });
 
-//});
