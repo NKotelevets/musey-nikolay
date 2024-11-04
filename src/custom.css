@@ -1,17 +1,69 @@
 .main-container {
-    margin-top: 100px;
+  margin-top: 100px;
 }
-
-
 
 .output-display {
-    background-color: #383b4b;
-    height: 700px;
+  background-color: #383b4b;
+  height: 700px;
 }
 
-
-
 .background {
-    background-color: #272727;
-    color: #747474;
+  background-color: #272727;
+  color: #747474;
+}
+
+.box {
+  position: relative;
+  height: 200px;
+  width: 100%;
+  box-shadow: 10px 10px 10px black;
+  overflow: hidden;
+  padding: 5px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.box::before {
+  position: absolute;
+  content: "";
+  width: 150%;
+  height: 150%;
+  background-image: conic-gradient(from 270deg, transparent 65%, #34d104 100%);
+  left: -25%;
+  top: -25%;
+  z-index: 1;
+  animation: rotate 2s linear infinite;
+}
+
+.box::after {
+  position: absolute;
+  content: "";
+  width: 150%;
+  height: 150%;
+  background-image: conic-gradient(from 90deg, transparent 65%, #34d104 100%);
+  left: -25%;
+  top: -25%;
+  z-index: 1;
+  animation: rotate 2s linear infinite;
+}
+
+.pauseSpeech {
+  background-color: red;
+}
+
+.pauseSpeech::before,
+.pauseSpeech::after {
+  background-image: none;
+}
+
+#speechInput {
+  height: 100%;
+  position: relative;
+  z-index: 2;
+}
+
+@keyframes rotate {
+  100% {
+    transform: rotate(360deg);
+  }
 }
