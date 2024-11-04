@@ -9,8 +9,19 @@ import ToggleButton from './ToggleButton';
 import VideoPlayer  from './VideoPlayer';
 import NameDisplay from './NameDisplay'
 import StatusIndicator from './StatusIndicator';
+import jQuery from 'jquery';
 
 const speechsdk = require('microsoft-cognitiveservices-speech-sdk');
+/*import { useSearchParams } from "react-router-dom";
+
+const [searchParams, setSearchParams] = useSearchParams();
+const debug = searchParams.get("debug")*/
+
+var urlParams = new URLSearchParams(window.location.search);
+var debug = urlParams.has('debug')
+if(debug) {
+    jQuery("body").addClass("do-debug");
+}
 
 // Build the theme outside the component to prevent unnecessary recalculation on every render
 const { theme, style } = buildTheme({
@@ -140,6 +151,21 @@ const ChatComponent = ({ botConfig, botClientId, localisation, voiceName, subscr
         console.log(`Toggle is now ${isOn ? 'ON' : 'OFF'}`);
     };
 
+    const toggleSubtitles = (isOn) => {
+        console.log(`Subtitles is now ${isOn ? 'ON' : 'OFF'}`);
+        jQuery("body").toggleClass("subtitles")
+    };
+
+    const toggleKeyboard = (isOn) => {
+        console.log(`Subtitles is now ${isOn ? 'ON' : 'OFF'}`);
+        jQuery("body").toggleClass("keyboard")
+    };
+
+    const toggleDebug = (isOn) => {
+        console.log(`Debug is now ${isOn ? 'ON' : 'OFF'}`);
+        jQuery("body").toggleClass("do-debug")
+    };
+
     const handleOnAction = () => {
         console.log('Action performed because the toggle is ON');
     };
@@ -164,15 +190,15 @@ const ChatComponent = ({ botConfig, botClientId, localisation, voiceName, subscr
         <div className="container app-container">
 
 
-            <div className="row main-container">
-                <div className="col-6">
-                <div>
-                    <h1>Status Indicator Example</h1>
-                    <StatusIndicator status={isOn} />
-                    <button onClick={toggleStatus}>
-                        {isOn ? 'Turn Off' : 'Turn On'}
-                    </button>
-                </div>
+            <div className="row main-container ">
+                <div className="col-6 debug">
+                    <div>
+                        <h1>Status Indicator Example</h1>
+                        <StatusIndicator status={isOn} />
+                        <button onClick={toggleStatus}>
+                            {isOn ? 'Turn Off' : 'Turn On'}
+                        </button>
+                    </div>
                     <div class="form-group">
                         <label for="exampleFormControlTextarea1">Testen van de speech to tekst</label>
                         <textarea class="form-control" value={textareaValue}
@@ -211,19 +237,16 @@ const ChatComponent = ({ botConfig, botClientId, localisation, voiceName, subscr
                         </div>
                     </div>
 
+                    </div>
+                    <div className="col-6 screen">
 
-          
-                    <div id="screen">
-            
-                    <VideoPlayer videoSrc={videoUrl}/>
-                      
-                       
-
-                
+                        <div id="screen">
+                        <VideoPlayer videoSrc={videoUrl}/>
+                  
                     </div>
                 </div>
 
-                <div className="col-6 output-display rounded">
+                <div className="col-6 output-display debug">
                     <code id="speechOutput">{statusText}</code>
                     <WebchatProvider theme={theme} client={client} key={JSON.stringify(botConfig)} configuration={botConfig}>
                         <Container>
@@ -232,25 +255,44 @@ const ChatComponent = ({ botConfig, botClientId, localisation, voiceName, subscr
                             <Composer />
                         </Container>
                     </WebchatProvider>
-                    <ToggleButton
-                        onToggle={handleToggle}
+                    
+
+                </div>
+
+                <div className='controls'>
+                     <ToggleButton 
+                        id="toggle-keyboard"
+                        onToggle={toggleKeyboard}
                         onAction={handleOnAction}
                         title="Toggle Toetsenbord"
+                        indicator
+                        stick
                     />
-                            <ToggleButton
+                    <ToggleButton 
+                        id="toggle-person"
                         onToggle={handleToggle}
                         onAction={handleOnAction}
                         title="Toggle Persoon"
+                         
                     />
-                            <ToggleButton
-                        onToggle={handleToggle}
+                    <ToggleButton 
+                        id="toggle-subtitles"
+                        onToggle={toggleSubtitles}
                         onAction={handleOnAction}
                         title="Toggle Ondertitels"
+                        
+                        indicator
                     />
 
-                </div>
-                <div>
-                <NameDisplay name={'smurf'} />
+                <ToggleButton 
+                        id="toggle-debug"
+                        onToggle={toggleDebug}
+                        onAction={handleOnAction}
+                        title="Toggle debug"
+                        
+                        indicator
+                    />
+                    <NameDisplay name={'smurf'} />
                 </div>
             
             </div>

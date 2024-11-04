@@ -38,7 +38,7 @@ var hadInteraction = false;
        hadInteraction = true;
   });
 
-  jQuery('body').on('mouseover keydown','.btn, input, textarea',function(event) {
+  jQuery('body').on('mouseover keydown','.btn:not(.toggle-button), input, textarea',function(event) {
       if(hadInteraction) {
         curId = Math.floor(Math.random() * arrSfxKeyDown.length);
         arrSfxKeyDown[curId].play();
@@ -46,14 +46,14 @@ var hadInteraction = false;
       
   });
 
-  jQuery('body').on('mouseout keyup','.btn, input, textarea',function(event) {
+  jQuery('body').on('mouseout keyup','.btn:not(.toggle-button), input, textarea',function(event) {
     if(hadInteraction) {
       curId = Math.floor(Math.random() * arrSfxKeyUp.length);
       arrSfxKeyUp[curId].play();
     }
   });
 
-  jQuery('body').on('mousedown','.hg-button',function(event) {
+  jQuery('body').on('mousedown','.hg-button, .toggle-button',function(event) {
     if(hadInteraction) {
       curId = Math.floor(Math.random() * arrSfxKeyDown.length);
       arrSfxKeyDown[curId].play();
@@ -61,7 +61,7 @@ var hadInteraction = false;
     
 });
 
-jQuery('body').on('mouseup','.hg-button',function(event) {
+jQuery('body').on('mouseup','.hg-button, .toggle-button',function(event) {
   if(hadInteraction) {
     curId = Math.floor(Math.random() * arrSfxKeyUp.length);
     arrSfxKeyUp[curId].play();

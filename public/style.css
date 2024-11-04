@@ -2,13 +2,12 @@
     --outline-width: .14vh;
     --outline-width-neg:calc(-1 * var(--outline-width));
     --color-brand:#fbba00;
-    --screen-x:10vh;
+    --screen-x: 5vh;
     --screen-y:var(--screen-x);
     --screen-size:calc(100vh - (var(--screen-x) * 2));
     --screen-x-netto:10vh;
     --screen-y-netto:var(--screen-x-netto);
     --screen-size-netto:calc( var(--screen-size) - (var(--screen-x-netto) * 2));
- 
 }
 
 body {
@@ -42,14 +41,9 @@ button.btn,
     color: #36312f;
     text-shadow: 0 0 1vh #ded3bb;
     line-height:1.5vw;
+    position: relative;
 }
-.hg-button {
-   border-width: 2vh;
-   padding:0.3vh!important;
-   font-size: 1.2vh!important;
-  border-bottom:2vh solid !important;
-  
-}
+
 
     button.btn .fas {
         font-size: 2vw;
@@ -82,8 +76,10 @@ color: #b74a13!important;
 
 
 .hg-button:active,
-button.btn:active,
-button.btn:hover{
+button.btn:not(.toggle-button.stick):active,
+button.btn:not(.toggle-button):hover,
+.toggle-button.stick.on,
+.toggle-button.stick:active {
 border-image-source: url("../images/btn_down.png")!important;
 mix-blend-mode: hard-light;
 padding-top: 2.2vh;
@@ -92,6 +88,34 @@ text-shadow: 0 0 1vh #575350;
 }
 
 
+.toggle-button.indicator:before {
+   content: "iii";
+   width: 2vh;
+   height: 2vh;
+   color: #155115;
+   margin-right: 1vh;
+}
+
+.toggle-button.on:before {
+  color: #83ff83;
+  text-shadow:0 0 0.3vh #79ff00;
+  mix-blend-mode:lighten;
+}
+
+.toggle-button.stick:active {
+  
+  border-width: 4.5vh;
+  padding:1.5vh;
+  filter:brightness(0.8);
+}
+/*
+.toggle-button.off:active {
+  border-width: 3vh;
+  padding:3vh;
+  padding-top: 3.2vh;
+  padding-bottom: 2.8vh;
+  filter:brightness(0.5);
+}*/
 
 #screen {
   position: fixed;
@@ -300,12 +324,78 @@ color:black;
 }
 
 /***KEYBOARD***/
-  .simple-keyboard {
+
+  body.keyboard .simple-keyboard {
+    right:0
+  }
+
+ body:not(.keyboard) .simple-keyboard {
+    right:-50vw;
+    transition-timing-function: cubic-bezier(0, 0.81, 0.08, 0.95);+
+  }
+
+  .simple-keyboard.hg-theme-default {
+     transition:0.5s;
+      background-color:#e3d7cb;
       width: 45vw!important;
       height: 29vh;
       position:fixed;
-      right:0;
+     
       left:auto;
       bottom:10vh;
       z-index: 9999;
+      box-shadow:0 0 0.5vh #322013, 0 0 10vh #523723e6;
   }
+
+.hg-button {
+   border-width: 2vh;
+   /* padding:0.3vh!important; */
+   font-size: 1.4vh!important;
+   border-bottom:2vh solid !important;
+   font-family: "keyboard",Arial;
+   margin: 0!important;
+   background-color:#e3d7cb!important;
+   
+}
+
+.hg-theme-default .hg-button.hg-standardBtn {
+  aspect-ratio:1;
+  width: auto!important;
+  
+
+}
+
+.hg-row {
+   margin:0!important;
+  background:black;
+}
+
+.hg-button span {
+  transform: translate(-0.3vw, -0.3vw);
+}
+
+body:not(.do-debug) .debug {
+    display: none;
+}
+
+
+
+body:not(.do-debug) .output-display.debug {
+    display: block;
+    height: 50vh;
+    position:absolute;
+    bottom: -50vh;
+    width: 90vw;
+    left: 5vw;
+}
+
+
+
+
+/****DEBUG****/
+#toggle-debug {
+  position:fixed;
+  right:0;
+  top:0;
+  padding:0vh!important;
+}
