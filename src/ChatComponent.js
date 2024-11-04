@@ -9,6 +9,7 @@ import ToggleButton from './ToggleButton';
 import VideoPlayer  from './VideoPlayer';
 import NameDisplay from './NameDisplay'
 import StatusIndicator from './StatusIndicator';
+import OnScreenKeyboard from './OnScreenKeyboard';
 
 const speechsdk = require('microsoft-cognitiveservices-speech-sdk');
 
@@ -144,6 +145,23 @@ const ChatComponent = ({ botConfig, botClientId, localisation, voiceName, subscr
         console.log('Action performed because the toggle is ON');
     };
 
+    const sendToBotpress = (message) => {
+        const botpressUrl = 'https://your-botpress-server/api/v1/messages';
+        
+        fetch(botpressUrl, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            type: 'text',
+            text: message,
+          }),
+        })
+          .then((response) => response.json())
+          .then((data) => console.log('Message sent to Botpress:', data))
+          .catch((error) => console.error('Error sending message to Botpress:', error));
+      };
     const handleMute = () => {
         updatePlayer((p) => {
             if (!p.muted) {
@@ -258,7 +276,8 @@ const ChatComponent = ({ botConfig, botClientId, localisation, voiceName, subscr
                 <style>{style}</style>
             </div>
             <div id="shine"></div>
-            <div class="simple-keyboard"></div>
+          {/*   <div class="simple-keyboard"></div> */}
+            <OnScreenKeyboard onSend={sendToBotpress} />
         </div>
     );
 };
