@@ -74,14 +74,6 @@
     padding: 3rem;
 }
 
-.bpComposerContainer {
-    position:fixed;
-    bottom:50%;
-    right:0;
-    padding:2rem;
-    width:33%;
-    transform:translateY(50%);
-}
 
 .bpContainer {
   

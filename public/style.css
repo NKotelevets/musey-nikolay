@@ -94,15 +94,18 @@ button.btn,
 
  button.big-icon:before {
    font-size:6vw;
-    line-height:1;
+   line-height:1;
+   margin: 0;
  }
  button.big-icon {
     display: flex;
     flex-direction: column;
-    gap: 1vh;
+    gap: 0;
     align-items: center;
-    padding: 0.5vw;
+    border-width: 1vw;
     justify-content: center;
+    font-size: 0;
+    border-image-slice: 77 fill!important;
  }
 
 
@@ -120,7 +123,8 @@ textarea:focus {
   box-shadow: inset 0 0 2vh #fb6a004f;
   text-shadow: 0 0 1vh #fb7000;
   text-transform: uppercase;
-  padding: 2vh!important;
+  padding: 2vh;
+  !;
 } 
 
 ::placeholder { 
@@ -174,10 +178,14 @@ button.big-icon:active {
 }
 
 .toggle-button.stick:active {
-  
   border-width: 4.5vh;
   padding:1.5vh;
   filter:brightness(0.8);
+}
+
+.toggle-button.stick.big-icon:active {
+  border-width:3vh;
+  padding: 1vh;
 }
 /*
 .toggle-button.off:active {
@@ -307,16 +315,19 @@ button.big-icon:active {
    justify-content: space-between;
    align-content: space-around;
    align-items: center;
+   gap: 2vh;
+   padding-top: 9vh;
 }
 
 .controls > * {
   order:99;
+  flex-grow: 1;
 }
 
 #toggle-person {
   order:0;
-  align-self:stretch;
-  
+  /* align-self:stretch; */
+  flex-grow: 0;
 }
 
 #toggle-person:before {
@@ -325,7 +336,20 @@ button.big-icon:active {
 }
 
 #lbl-person {
-  order:1;
+    width: auto;
+    padding: 0 1vh;
+    top: 5vh;
+    position: absolute;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+#toggle-person {
+    order:1;
+}
+
+#lbl-instructions {
+  order:2;
 }
 
 #root {
@@ -333,8 +357,8 @@ button.big-icon:active {
 }
 
 .main-container {
-  margin:0;
-  padding:1vw;
+  margin: 0!important;
+  padding: 2vw;
   padding-left: 51vw;
   width: 100vw;
 }

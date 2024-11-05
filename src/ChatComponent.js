@@ -272,13 +272,14 @@ const ChatComponent = ({ botConfig, botClientId, localisation, voiceName, subscr
                         indicator
                         stick
                     />
+                    <div id="lbl-person" class="label">Kies een persoon</div>
                     <ToggleButton 
                         id="toggle-person"
                         onToggle={handleToggle}
                         onAction={handleOnAction}
                         title="Toggle Persoon"
                         extraClass='big-icon'
-                         
+                        stick
                     />
                     <ToggleButton 
                         id="toggle-subtitles"
@@ -297,7 +298,7 @@ const ChatComponent = ({ botConfig, botClientId, localisation, voiceName, subscr
                         
                         indicator
                     />
-                    <div id="lbl-person" class="label">
+                    <div id="lbl-instructions" class="label">
                         <h1>Welkom</h1>
                         <p>Je voert nu een gesprek met:</p>
                         <NameDisplay name={'smurf'} />
