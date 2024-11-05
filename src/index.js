@@ -33,5 +33,8 @@ function onChange(input){
 function onKeyPress(button){
   if(button == "{enter}") {
     console.log("Button pressed", button);
+    //botpressClient.sendMessage(jQuery(".bpComposerInput").val() );
+
+      jQuery(".bpComposerButtonContainer").trigger("click")
   } 
 }

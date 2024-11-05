@@ -1,15 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const StatusIndicator = ({ status }) => {
-  const lightStyle = {
-    width: '20px',
-    height: '20px',
-    borderRadius: '50%',
-    backgroundColor: status ? 'green' : 'red',
-  };
+const StatusIndicator = ({ status, color = "red"}) => {
+  const cssClasses = "status " + (status ? "on" : "off") + " " + color
 
-  return <div style={lightStyle} />;
+  return <figure class={cssClasses} />;
 };
 
 StatusIndicator.propTypes = {

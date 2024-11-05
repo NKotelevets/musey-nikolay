@@ -170,6 +170,10 @@ const ChatComponent = ({ botConfig, botClientId, localisation, voiceName, subscr
         console.log('Action performed because the toggle is ON');
     };
 
+
+    
+
+
     const handleMute = () => {
         updatePlayer((p) => {
             if (!p.muted) {
@@ -273,6 +277,7 @@ const ChatComponent = ({ botConfig, botClientId, localisation, voiceName, subscr
                         onToggle={handleToggle}
                         onAction={handleOnAction}
                         title="Toggle Persoon"
+                        extraClass='big-icon'
                          
                     />
                     <ToggleButton 
@@ -292,7 +297,14 @@ const ChatComponent = ({ botConfig, botClientId, localisation, voiceName, subscr
                         
                         indicator
                     />
-                    <NameDisplay name={'smurf'} />
+                    <div id="lbl-person" class="label">
+                        <h1>Welkom</h1>
+                        <p>Je voert nu een gesprek met:</p>
+                        <NameDisplay name={'smurf'} />
+                        <p class="icon icon-mic">Als dit lampje groen is kun je spreken</p>
+                        <p class="icon icon-wait">Als dit lampje brandt moet je even wachten</p>
+                    </div>
+                    
                 </div>
             
             </div>
@@ -300,7 +312,7 @@ const ChatComponent = ({ botConfig, botClientId, localisation, voiceName, subscr
                 <style>{style}</style>
             </div>
             <div id="shine"></div>
-            <div class="simple-keyboard"></div>
+            <div class="simple-keyboard"><textarea id="input-keyboard"></textarea></div>
         </div>
     );
 };
