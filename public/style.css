@@ -359,7 +359,7 @@ button.big-icon:active {
 .main-container {
   margin: 0!important;
   padding: 2vw;
-  padding-left: 51vw;
+  padding-left: calc(var(--screen-size) + var(--screen-x) + 2vw);
   width: 100vw;
 }
 
