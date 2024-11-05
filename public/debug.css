@@ -1,7 +1,5 @@
 
-.bpMessageContainer {
-    opacity:0.3;
-}
+
 
 
 .bpMessageContainer[data-direction=incoming]:last-of-type:before {
@@ -53,10 +51,7 @@
 }
 
 
-.bpContainer {
-  
-    background-color: transparent!important;
-}
+
 
 .bpMessageBlocksDropdownContentContainer {
     display:flex;

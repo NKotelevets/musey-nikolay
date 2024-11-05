@@ -27,7 +27,7 @@ const keyboard = new Keyboard({
 
 function onChange(input){
   jQuery(".bpComposerInput").val( input) ;
-  
+  jQuery("#input-keyboard").val( input) ;
 }
 
 function onKeyPress(button){
@@ -38,3 +38,5 @@ function onKeyPress(button){
       jQuery(".bpComposerButtonContainer").trigger("click")
   } 
 }
+
+jQuery("#toggle-subtitles").trigger("click")

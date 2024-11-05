@@ -195,10 +195,83 @@ const ChatComponent = ({ botConfig, botClientId, localisation, voiceName, subscr
 
 
             <div className="row main-container ">
+              
+                    <div className="col-6 screen">
+
+                        <div id="screen">
+                        <VideoPlayer videoSrc={videoUrl}/>
+                  
+                    </div>
+                </div>
+
+               
+
+                <div className='controls'>
+                    
+                    <span>
+                        <div id="lbl-person" class="label">Kies een persoon</div>
+                        <ToggleButton 
+                            id="toggle-person"
+                            onToggle={handleToggle}
+                            onAction={handleOnAction}
+                            title="Toggle Persoon"
+                            extraClass='big-icon'
+                            stick
+                        />
+                    </span>
+
+                    
+                    <div id="lbl-instructions" class="label">
+                        <h1>Welkom</h1>
+                        <p>Je voert nu een gesprek met:</p>
+                        <NameDisplay name={'smurf'} />
+                        <p class="icon icon-mic">Als dit lampje groen is kun je spreken</p>
+                        <p class="icon icon-wait">Als dit lampje brandt moet je even wachten</p>
+                    </div>
+
+                    <div id="frm-talk" class="frame">
+                        <StatusIndicator status={isOn} color="green" />
+                    </div>
+
+                    <div id="frm-wait" class="frame">
+                        <StatusIndicator status={isOn} />
+
+                    </div>
+
+                    <ToggleButton 
+                        id="toggle-subtitles"
+                        onToggle={toggleSubtitles}
+                        onAction={handleOnAction}
+                        title="Toggle Ondertitels"
+                        
+                        indicator
+                    />
+
+                    <ToggleButton   
+                        id="toggle-keyboard"
+                        onToggle={toggleKeyboard}
+                        onAction={handleOnAction}
+                        title="Toggle Toetsenbord"
+                        indicator
+                        stick
+                    />
+                    
+
+                <ToggleButton 
+                        id="toggle-debug"
+                        onToggle={toggleDebug}
+                        onAction={handleOnAction}
+                        title="Toggle debug"
+                        
+                        indicator
+                    />
+                    
+                </div>
+            
                 <div className="col-6 debug">
                     <div>
                         <h1>Status Indicator Example</h1>
-                        <StatusIndicator status={isOn} />
+                        
                         <button onClick={toggleStatus}>
                             {isOn ? 'Turn Off' : 'Turn On'}
                         </button>
@@ -242,14 +315,7 @@ const ChatComponent = ({ botConfig, botClientId, localisation, voiceName, subscr
                     </div>
 
                     </div>
-                    <div className="col-6 screen">
-
-                        <div id="screen">
-                        <VideoPlayer videoSrc={videoUrl}/>
-                  
-                    </div>
-                </div>
-
+                    
                 <div className="col-6 output-display debug">
                     <code id="speechOutput">{statusText}</code>
                     <WebchatProvider theme={theme} client={client} key={JSON.stringify(botConfig)} configuration={botConfig}>
@@ -262,58 +328,18 @@ const ChatComponent = ({ botConfig, botClientId, localisation, voiceName, subscr
                     
 
                 </div>
-
-                <div className='controls'>
-                     <ToggleButton 
-                        id="toggle-keyboard"
-                        onToggle={toggleKeyboard}
-                        onAction={handleOnAction}
-                        title="Toggle Toetsenbord"
-                        indicator
-                        stick
-                    />
-                    <div id="lbl-person" class="label">Kies een persoon</div>
-                    <ToggleButton 
-                        id="toggle-person"
-                        onToggle={handleToggle}
-                        onAction={handleOnAction}
-                        title="Toggle Persoon"
-                        extraClass='big-icon'
-                        stick
-                    />
-                    <ToggleButton 
-                        id="toggle-subtitles"
-                        onToggle={toggleSubtitles}
-                        onAction={handleOnAction}
-                        title="Toggle Ondertitels"
-                        
-                        indicator
-                    />
-
-                <ToggleButton 
-                        id="toggle-debug"
-                        onToggle={toggleDebug}
-                        onAction={handleOnAction}
-                        title="Toggle debug"
-                        
-                        indicator
-                    />
-                    <div id="lbl-instructions" class="label">
-                        <h1>Welkom</h1>
-                        <p>Je voert nu een gesprek met:</p>
-                        <NameDisplay name={'smurf'} />
-                        <p class="icon icon-mic">Als dit lampje groen is kun je spreken</p>
-                        <p class="icon icon-wait">Als dit lampje brandt moet je even wachten</p>
-                    </div>
-                    
-                </div>
-            
             </div>
             <div style={{ width: '100vw', height: '100vh' }}>
                 <style>{style}</style>
             </div>
             <div id="shine"></div>
-            <div class="simple-keyboard"><textarea id="input-keyboard"></textarea></div>
+            <div class="simple-keyboard">
+                <span>
+                    <textarea id="input-keyboard"></textarea>
+                    <button class="btn" id="btn-send">Praat</button>
+                </span>
+                
+            </div>
         </div>
     );
 };
