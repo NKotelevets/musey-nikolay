@@ -3,18 +3,6 @@
     opacity:0.3;
 }
 
-.bpMessageContainer[data-direction=incoming]:last-of-type {
-    /*background-color: yellow;*/
-    position:fixed;
-    bottom:0;
-    left:0;
-    font-size: 1.5rem;
-    line-height: 1em;
-    width:50vh;
-    gap:1em;
-    padding:2rem;
-    opacity:1;
-}
 
 .bpMessageContainer[data-direction=incoming]:last-of-type:before {
     content: '';
@@ -23,8 +11,6 @@
     top: 0;
 }
 
-
-/*[data-direction=incoming]*/
 
 .bpMessageContainer[data-direction=incoming]:last-of-type .bpMessageBlocksBubble {
     width:-webkit-fill-available;
@@ -36,16 +22,8 @@
     display: none!important;
 }
 
-.bpMessageContainer[data-direction=incoming]:has(.bpMessageBlocksRow):last-of-type,
-.bpMessageContainer[data-direction=incoming]:has(.bpMessageBlocksDropdownButtonContainer):last-of-type {
-    background-color:orange;
-    aspect-ratio:1;
-   
-}
-.bpMessageContainer[data-direction=incoming]:has(.bpMessageBlocksRow):last-of-type:before,
-.bpMessageContainer[data-direction=incoming]:has(.bpMessageBlocksDropdownButtonContainer):last-of-type:before {
-    content: 'dit komt op een scherm';
-}
+
+
 
 .bpMessageContainer[data-direction=incoming]:has(.bpTypingIndicatorContainer):last-of-type {
     background-color:red;
