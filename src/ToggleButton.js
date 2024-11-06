@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
-const ToggleButton = ({ onIcon, offIcon, onToggle, onAction, title, id, stick, indicator, extraClass = ""}) => {
+const ToggleButton = ({ onIcon, offIcon, onToggle, onAction, title, id, stick, indicator, extraClass = "", label = ""}) => {
   const [isOn, setIsOn] = useState(false);
 
   const handleToggle = () => {
@@ -30,12 +30,16 @@ const ToggleButton = ({ onIcon, offIcon, onToggle, onAction, title, id, stick, i
     cssClasses = cssClasses + " indicator";
   } 
 
+
   return (
     
+    <span>
+     <div class='label'>{label}</div>
     <button onClick={handleToggle} class={cssClasses} id={id}>
       {isOn ? onIcon : offIcon}
       {title}
     </button>
+    </span>
   );
 };
 

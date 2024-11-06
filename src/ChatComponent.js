@@ -199,17 +199,17 @@ const ChatComponent = ({ botConfig, botClientId, localisation, voiceName, subscr
                     <div className="col-6 screen">
 
                         <div id="screen">
-                        <VideoPlayer videoSrc={videoUrl}/>
+                            <VideoPlayer videoSrc={videoUrl}/>
+                             <div id="subtitles"></div>
                   
+                        </div>
                     </div>
-                </div>
 
                
 
                 <div className='controls'>
                     
-                    <span>
-                        <div id="lbl-person" class="label">Kies een persoon</div>
+                    
                         <ToggleButton 
                             id="toggle-person"
                             onToggle={handleToggle}
@@ -217,8 +217,9 @@ const ChatComponent = ({ botConfig, botClientId, localisation, voiceName, subscr
                             title="Toggle Persoon"
                             extraClass='big-icon'
                             stick
+                            label="Kies een persoon"
                         />
-                    </span>
+                   
 
                     
                     <div id="lbl-instructions" class="label">
@@ -231,10 +232,12 @@ const ChatComponent = ({ botConfig, botClientId, localisation, voiceName, subscr
 
                     <div id="frm-talk" class="frame">
                         <StatusIndicator status={isOn} color="green" />
+                        <p class="icon icon-mic">spreken</p>
                     </div>
 
                     <div id="frm-wait" class="frame">
                         <StatusIndicator status={isOn} />
+                        <p class="icon icon-wait">wachten</p>
 
                     </div>
 
@@ -243,8 +246,10 @@ const ChatComponent = ({ botConfig, botClientId, localisation, voiceName, subscr
                         onToggle={toggleSubtitles}
                         onAction={handleOnAction}
                         title="Toggle Ondertitels"
-                        
+                        extraClass='big-icon'
                         indicator
+                        stick
+                        label="ondertitels"
                     />
 
                     <ToggleButton   
@@ -252,9 +257,13 @@ const ChatComponent = ({ botConfig, botClientId, localisation, voiceName, subscr
                         onToggle={toggleKeyboard}
                         onAction={handleOnAction}
                         title="Toggle Toetsenbord"
+                        extraClass='big-icon'
                         indicator
                         stick
+                        label="toetsenbord"
                     />
+
+                    <figure class="speaker"></figure>
                     
 
                 <ToggleButton 
@@ -315,7 +324,7 @@ const ChatComponent = ({ botConfig, botClientId, localisation, voiceName, subscr
                     </div>
 
                     </div>
-                    
+
                 <div className="col-6 output-display debug">
                     <code id="speechOutput">{statusText}</code>
                     <WebchatProvider theme={theme} client={client} key={JSON.stringify(botConfig)} configuration={botConfig}>
@@ -329,15 +338,12 @@ const ChatComponent = ({ botConfig, botClientId, localisation, voiceName, subscr
 
                 </div>
             </div>
-            <div style={{ width: '100vw', height: '100vh' }}>
-                <style>{style}</style>
-            </div>
+            
             <div id="shine"></div>
             <div class="simple-keyboard">
                 <span>
                     <textarea id="input-keyboard"></textarea>
-                    <button class="btn" id="btn-send">Praat</button>
-                </span>
+              </span>
                 
             </div>
         </div>
