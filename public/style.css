@@ -357,23 +357,30 @@ button.big-icon:active {
   background-position:center;
   background-size: calc(100% - (var(--border-width) * 2));
   border-radius: var(--border-radius);
+  box-shadow: 0 0 20vh #ff76009e;
+  transition:box-shadow 1s;
 
 }
 
+.off #shine {
+  box-shadow:0 0 0 #373737;
+}
+
 #shine:before {
-  box-shadow: 0 0 20vh #ff7600;
+  
   mix-blend-mode: overlay;
-  opacity: .7;
+  opacity: 0.4;
   border-radius: var(--border-radius);
   background: url(../images/crt.jpg);
   background-size: cover;
   z-index: 10;
-  opacity: 0.4;
+ 
   left:var(--border-width);
   top:var(--border-width);
   width:calc(100% - var(--border-width) * 2);
   height:calc(100% - var(--border-width) * 2);
   transition: opacity 0.2s ease-in;
+  
 }
 
 .off #shine:before {
