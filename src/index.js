@@ -57,14 +57,20 @@ function onKeyPress(button){
 jQuery("#toggle-subtitles").trigger("click")
 
 var strSubtitles;
-
+var directionSubtitles;
 setInterval(function() {
 
-  var newSubtitles = jQuery(".bpMessageBlocksTextText").last().text()
+  var lastItem = jQuery(".bpMessageBlocksTextText").last();
+
+  var newSubtitles = lastItem.text()
 
   if(newSubtitles != strSubtitles) {
+
+    directionSubtitles = lastItem.parent().parent().data("direction")
     
     strSubtitles= newSubtitles
+    jQuery('#subtitles').removeClass()
+    jQuery('#subtitles').addClass(directionSubtitles)
     jQuery('#subtitles').text(strSubtitles);
     
   }

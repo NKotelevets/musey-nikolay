@@ -166,6 +166,11 @@ const ChatComponent = ({ botConfig, botClientId, localisation, voiceName, subscr
         jQuery("body").toggleClass("do-debug")
     };
 
+    const toggleScreen = (isOn) => {
+        console.log(`Screen is now ${isOn ? 'OFF' : 'ON'}`);
+        jQuery("body").toggleClass("off")
+    };
+
     const handleOnAction = () => {
         console.log('Action performed because the toggle is ON');
     };
@@ -267,6 +272,15 @@ const ChatComponent = ({ botConfig, botClientId, localisation, voiceName, subscr
                     
 
                 <ToggleButton 
+                        id="toggle-screen"
+                        onToggle={toggleScreen}
+                        onAction={handleOnAction}
+                        title="Screen off"
+                        
+                        indicator
+                    />
+
+                    <ToggleButton 
                         id="toggle-debug"
                         onToggle={toggleDebug}
                         onAction={handleOnAction}
@@ -326,7 +340,7 @@ const ChatComponent = ({ botConfig, botClientId, localisation, voiceName, subscr
                     </div>
 
                 <div className="col-6 output-display debug">
-                    <code id="speechOutput">{statusText}</code>
+                    <code id="speechOutput" className='debug'>{statusText}</code>
                     <WebchatProvider theme={theme} client={client} key={JSON.stringify(botConfig)} configuration={botConfig}>
                         <Container>
                             <Header />

@@ -10,16 +10,6 @@
 }
 
 
-.bpMessageContainer[data-direction=incoming]:last-of-type .bpMessageBlocksBubble {
-    width:-webkit-fill-available;
-    background: none!important;
-    max-width: none;
-}
-
-.bpMessageContainer[data-direction=incoming]:last-of-type .bpMessageAvatarContainer {
-    display: none!important;
-}
-
 
 
 
@@ -52,20 +42,3 @@
 
 
 
-
-.bpMessageBlocksDropdownContentContainer {
-    display:flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 2rem;
-    background-color: orange!important;
-    width:30vw;
-    padding: 1em!important;
-    justify-content: space-between;
-    align-content: flex-start;
-}
-
-.bpMessageBlocksDropdownContentContainer > div {
-    background-color:white;
-    padding: 1.8rem;
-}
