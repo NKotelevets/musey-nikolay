@@ -1,12 +1,18 @@
-import React, { useState, useEffect, useRef } from 'react';
-import * as sdk from 'microsoft-cognitiveservices-speech-sdk';
+import React, { useState, useEffect, useRef } from "react";
+import * as sdk from "microsoft-cognitiveservices-speech-sdk";
 
-const SpeechToTextComponent = ({ elementId, locale = "en-US", subscriptionKey, region, botpressClient }) => {
+const SpeechToTextComponent = ({
+  elementId,
+  locale = "en-US",
+  subscriptionKey,
+  region,
+  botpressClient,
+}) => {
   const [isListening, setIsListening] = useState(false);
   const [recognizer, setRecognizer] = useState(null);
   const [recognizedText, setRecognizedText] = useState(""); // Store recognized text
   const silenceTimer = useRef(null); // Ref for the silence timer
-  
+
   useEffect(() => {
     if (isListening) {
       startListening();
@@ -30,12 +36,18 @@ const SpeechToTextComponent = ({ elementId, locale = "en-US", subscriptionKey, r
     }
 
     // Azure Speech SDK Configuration
-    const speechConfig = sdk.SpeechConfig.fromSubscription(subscriptionKey, region);
+    const speechConfig = sdk.SpeechConfig.fromSubscription(
+      subscriptionKey,
+      region
+    );
     speechConfig.speechRecognitionLanguage = locale;
 
     const audioConfig = sdk.AudioConfig.fromDefaultMicrophoneInput();
 
-    const speechRecognizer = new sdk.SpeechRecognizer(speechConfig, audioConfig);
+    const speechRecognizer = new sdk.SpeechRecognizer(
+      speechConfig,
+      audioConfig
+    );
 
     speechRecognizer.recognizing = (sender, event) => {
       // Optionally update live as the speech is recognized
@@ -67,11 +79,14 @@ const SpeechToTextComponent = ({ elementId, locale = "en-US", subscriptionKey, r
 
   const stopListening = () => {
     if (recognizer) {
-      recognizer.stopContinuousRecognitionAsync(() => {
-        console.log("Recognition stopped.");
-      }, (error) => {
-        console.error("Error stopping recognition:", error);
-      });
+      recognizer.stopContinuousRecognitionAsync(
+        () => {
+          console.log("Recognition stopped.");
+        },
+        (error) => {
+          console.error("Error stopping recognition:", error);
+        }
+      );
     }
     clearSilenceTimer(); // Clear timer when stopping
   };
@@ -80,8 +95,8 @@ const SpeechToTextComponent = ({ elementId, locale = "en-US", subscriptionKey, r
   const resetSilenceTimer = (currentText) => {
     clearSilenceTimer();
     silenceTimer.current = setTimeout(async () => {
-      await handleSilence(currentText); // Handle silence after 2 seconds
-    }, 2000); // 2 seconds of silence
+      await handleSilence(currentText); // Handle silence after 0.5 seconds
+    }, 500); // 0.5 seconds of silence
   };
 
   // Clear the silence timer
@@ -111,7 +126,11 @@ const SpeechToTextComponent = ({ elementId, locale = "en-US", subscriptionKey, r
 
   return (
     <div>
-      <button type="button" className="btn btn-success" onClick={() => setIsListening(prev => !prev)}>
+      <button
+        type="button"
+        className="btn btn-success"
+        onClick={() => setIsListening((prev) => !prev)}
+      >
         {isListening ? "Stop Listening" : "Start Listening"}
       </button>
     </div>

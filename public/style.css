@@ -546,7 +546,7 @@ body:not(.subtitles) #screen #subtitles {
   aspect-ratio: 1;
   padding: 6vh;
   display: flex;
-  justify-content: center;
+  /* justify-content: center; */
   flex-direction: column;
   align-content: center;
   mix-blend-mode: normal;
@@ -662,7 +662,7 @@ body:not(.subtitles) #screen #subtitles {
   flex-wrap: wrap;
   gap: 2rem;
   background-color: orange !important;
-  width: 30vw;
+  width: 20vw;
   padding: 1em !important;
   justify-content: space-between;
   align-content: flex-start;

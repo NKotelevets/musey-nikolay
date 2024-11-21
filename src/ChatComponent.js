@@ -132,7 +132,7 @@ const ChatComponent = ({
     });
   }, []);
 
-  const videoUrl = "./video/dummy.mov";
+  const videoUrl = "./video/dummy.mp4";
 
   const [isOn, setIsOn] = useState(false);
 
@@ -420,7 +420,10 @@ const ChatComponent = ({
       <div className="row main-container ">
         <div className="col-6 screen">
           <div id="screen">
-            <VideoPlayer videoSrc={videoUrl} />
+            <VideoPlayer
+              videoSrc={videoUrl}
+              play={!!confPlaybackQueue.audioSrc}
+            />
             <div id="subtitles">
               {confPlaybackQueue?.playbackQueue?.length
                 ? confPlaybackQueue?.playbackQueue[0]?.ttsMessage?.replace(
