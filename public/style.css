@@ -98,10 +98,24 @@ figure.status {
 }
 
 figure.status.on {
-  background-image: url("../images/led_green_on.png");
+ 
+  
+}
+
+@keyframes flash {
+    0%, 100% {
+      opacity:20%;
+    }
+
+    50% {
+      opacity:100%;
+    }
 }
 
 figure.status.on:after {
+   background-image: url("../images/led_green_off.png"), url("../images/led_green_on.png");
+  
+  background-size: 100% 100%, 100% 100%;
   content: "";
   width: 100%;
   height: 100%;
@@ -109,6 +123,8 @@ figure.status.on:after {
   box-shadow: 0 0 3vh green;
   border-radius: 100%;
   mix-blend-mode: plus-lighter;
+  animation: flash 1s infinite;
+  background-blend-mode:hard-light;
 }
 
 figure.status.red {
@@ -116,11 +132,13 @@ figure.status.red {
 }
 
 figure.status.red.on {
-  background-image: url("../images/led_red_on.png");
+
 }
 
 figure.status.red.on:after {
   box-shadow: 0 0 3vh red;
+   background-image: url("../images/led_red_off.png"), url("../images/led_red_on.png");
+
 }
 
 h1 {
