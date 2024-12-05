@@ -44,6 +44,7 @@ const ChatComponent = ({
   desiredDuration,
   setBotpressConfigs,
 }) => {
+  let keyboard;
   const audioRef = useRef(null);
   const [isListening, setIsListening] = useState(false);
   const [activeListener, setActiveListener] = useState(false);
@@ -119,17 +120,18 @@ const ChatComponent = ({
 
   const onKeyPress = (button) => {
     if (button == "{enter}") {
-      console.log("Button pressed", button);
-
       client.sendMessage(jQuery(".bpComposerInput").val());
       jQuery("#input-keyboard").val("");
+      jQuery(".bpComposerInput").val("");
+      keyboard.clearInput();
     }
   };
 
   useEffect(() => {
-    const keyboard = new Keyboard({
+    keyboard = new Keyboard({
       onChange: (input) => onChange(input),
-      onKeyPress: (button) => onKeyPress(button),
+      onKeyPress: (button) => onKeyPress(button, keyboard),
+
       layout: {
         default: [
           "1 2 3 4 5 6 7 8 9 0 {bksp}",
@@ -145,6 +147,7 @@ const ChatComponent = ({
         "{space}": " ",
       },
     });
+
     return () => keyboard.destroy();
   }, []);
 
