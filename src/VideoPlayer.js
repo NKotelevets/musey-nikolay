@@ -11,7 +11,7 @@ const VideoPlayer = ({ videoSrc, play }) => {
           height="auto"
           loop
           autoPlay
-          poster={"./video/speaker_man.jpg"}
+          poster={"./video/ray.png"}
           src={videoSrc}
           muted
         >
@@ -19,7 +19,7 @@ const VideoPlayer = ({ videoSrc, play }) => {
           Your browser does not support the video tag.
         </video>
       ) : (
-        <img src={"./video/speaker_man.jpg"} />
+        <img src={"./video/ray.png"} />
       )}
     </div>
   );

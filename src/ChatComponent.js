@@ -151,7 +151,7 @@ const ChatComponent = ({
     return () => keyboard.destroy();
   }, []);
 
-  const videoUrl = "./video/dummy.mp4";
+  const videoUrl = "./video/RayNLIntro.mp4";
 
   const [isOn, setIsOn] = useState(false);
 
