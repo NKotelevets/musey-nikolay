@@ -41,6 +41,15 @@ const SpeechToTextComponent = ({
       region
     );
     speechConfig.speechRecognitionLanguage = locale;
+    speechConfig.setProperty(
+      speechsdk.PropertyId.SpeechServiceConnection_EndSilenceTimeoutMs,
+      "10"
+    );
+
+    speechConfig.setProperty(
+      speechsdk.PropertyId.Speech_SegmentationSilenceTimeoutMs,
+      "10"
+    );
 
     const audioConfig = sdk.AudioConfig.fromDefaultMicrophoneInput();
 

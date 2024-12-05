@@ -1,6 +1,6 @@
 export const Languages = [
   { id: 1, language: "nl", name: "NL", localisation: "nl-NL" },
-  { id: 2, language: "en", name: "EN", localisation: "nl-EN" },
+  { id: 2, language: "en", name: "EN", localisation: "en-US" },
 ];
 
 export const BotsNLLanguages = [

@@ -91,7 +91,7 @@ const ChatComponent = ({
       const localisationEvent =
         confPlaybackQueue.playbackQueue[0]?.language === "nl"
           ? "nl-NL"
-          : "en-EN";
+          : "en-US";
 
       textToSpeech(
         confPlaybackQueue.playbackQueue[0].ttsMessage,
