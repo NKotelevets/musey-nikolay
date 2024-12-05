@@ -9,16 +9,16 @@ import {
   getClient,
 } from "@botpress/webchat";
 import { buildTheme } from "@botpress/webchat-generator";
-import SpeechToTextComponent from "./SpeechToTextComponent"; // Adjust the path according to your file structure
+// import SpeechToTextComponent from "./SpeechToTextComponent"; // Adjust the path according to your file structure
 import ToggleButton from "./ToggleButton";
 import VideoPlayer from "./VideoPlayer";
 import NameDisplay from "./NameDisplay";
 import StatusIndicator from "./StatusIndicator";
 import jQuery from "jquery";
 import Keyboard from "simple-keyboard";
+import SelectPerson from "./components/SelectPerson";
 import "simple-keyboard/build/css/index.css";
-import * as sdk from "microsoft-cognitiveservices-speech-sdk";
-
+import * as test from "@botpress/webchat";
 const speechsdk = require("microsoft-cognitiveservices-speech-sdk");
 
 var urlParams = new URLSearchParams(window.location.search);
@@ -42,13 +42,21 @@ const ChatComponent = ({
   subscriptionKey,
   region,
   desiredDuration,
+  setBotpressConfigs,
 }) => {
   const audioRef = useRef(null);
   const [isListening, setIsListening] = useState(false);
   const [activeListener, setActiveListener] = useState(false);
-  const [client] = useState(() => getClient({ clientId: botClientId }));
-  const [textareaValue, setTextareaValue] = useState("");
+  const [client, setClient] = useState(() =>
+    getClient({ clientId: botClientId })
+  );
 
+  const [textareaValue, setTextareaValue] = useState("");
+  const [selectPerson, setSelectPerson] = useState(false);
+  const [temporarySelectionPerson, setTemporarySelectionPerson] = useState({
+    localisation: "",
+    speaker: "",
+  });
   const [recognizer, setRecognizer] = useState(null);
   const silenceTimer = useRef(null); // Ref for the silence timer
   const [confPlaybackQueue, setConfPlaybackQueue] = useState({
@@ -57,9 +65,6 @@ const ChatComponent = ({
     active: false,
   });
 
-  const [displayText, setDisplayText] = useState(
-    "INITIALIZED: ready to test speech..."
-  );
   const [statusText, setStatusText] = useState(
     "INITIALIZED: ready to test speech..."
   );
@@ -74,14 +79,24 @@ const ChatComponent = ({
         lastQuestion: event.lastAnswer,
       }));
     });
-  }, []);
+    return () => client?.disconnect && client?.disconnect();
+  }, [client]);
 
   useEffect(() => {
     if (confPlaybackQueue.playbackQueue?.length) {
       setIsListening(false);
     }
     if (!confPlaybackQueue.active && confPlaybackQueue.playbackQueue?.length) {
-      textToSpeech(confPlaybackQueue.playbackQueue[0].ttsMessage);
+      const localisationEvent =
+        confPlaybackQueue.playbackQueue[0]?.language === "nl"
+          ? "nl-NL"
+          : "en-EN";
+
+      textToSpeech(
+        confPlaybackQueue.playbackQueue[0].ttsMessage,
+        localisationEvent,
+        confPlaybackQueue.playbackQueue[0]?.ttsVoice
+      );
     }
     if (
       activeListener &&
@@ -130,6 +145,7 @@ const ChatComponent = ({
         "{space}": " ",
       },
     });
+    return () => keyboard.destroy();
   }, []);
 
   const videoUrl = "./video/dummy.mp4";
@@ -173,16 +189,21 @@ const ChatComponent = ({
     }));
   };
 
-  const textToSpeech = async (textToSpeak) => {
-    //const tokenObj = await getTokenOrRefresh();
-
-    //const speechConfig = speechsdk.SpeechConfig.fromAuthorizationToken(tokenObj.authToken, tokenObj.region);
+  const textToSpeech = async (
+    textToSpeak,
+    localisationEvent,
+    voiceNameEvent
+  ) => {
     const speechConfig = speechsdk.SpeechConfig.fromSubscription(
       subscriptionKey,
       region
     );
-    speechConfig.speechSynthesisLanguage = localisation;
-    speechConfig.speechSynthesisVoiceName = voiceName;
+    speechConfig.speechSynthesisLanguage = localisationEvent
+      ? localisationEvent
+      : localisation;
+    speechConfig.speechSynthesisVoiceName = voiceNameEvent
+      ? voiceNameEvent
+      : voiceName;
 
     const myPlayer = new speechsdk.SpeakerAudioDestination();
     if (myPlayer) {
@@ -259,8 +280,8 @@ const ChatComponent = ({
       }
     );
   };
-  const handleToggle = (isOn) => {
-    console.log(`Toggle is now ${isOn ? "ON" : "OFF"}`);
+  const handleTogglePerson = (isOn) => {
+    setSelectPerson(isOn);
   };
 
   const toggleSubtitles = (isOn) => {
@@ -432,18 +453,28 @@ const ChatComponent = ({
                   )
                 : ""}
             </div>
+            {selectPerson && (
+              <SelectPerson
+                setTemporarySelectionPerson={setTemporarySelectionPerson}
+                temporarySelectionPerson={temporarySelectionPerson}
+                handleTogglePerson={handleTogglePerson}
+                setBotpressConfigs={setBotpressConfigs}
+                client={client}
+                setClient={setClient}
+              />
+            )}
           </div>
         </div>
 
         <div className="controls">
           <ToggleButton
             id="toggle-person"
-            onToggle={handleToggle}
-            onAction={handleOnAction}
+            onToggle={handleTogglePerson}
             title="Toggle Persoon"
             extraClass="big-icon"
             stick
             label="Kies een persoon"
+            dismiss={!selectPerson}
           />
 
           <div id="lbl-instructions" class="label">

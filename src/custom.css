@@ -1,17 +1,13 @@
 .main-container {
-    margin-top: 100px;
+  margin-top: 100px;
 }
-
-
 
 .output-display {
-    background-color: #383b4b;
-    height: 700px;
+  background-color: #383b4b;
+  height: 700px;
 }
 
-
-
 .background {
-    background-color: #272727;
-    color: #747474;
+  background-color: #272727;
+  color: #747474;
 }

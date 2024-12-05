@@ -1,7 +1,19 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
+import React, { useEffect, useState } from "react";
+import PropTypes from "prop-types";
 
-const ToggleButton = ({ onIcon, offIcon, onToggle, onAction, title, id, stick, indicator, extraClass = "", label = ""}) => {
+const ToggleButton = ({
+  onIcon,
+  offIcon,
+  onToggle,
+  onAction,
+  title,
+  id,
+  stick,
+  indicator,
+  extraClass = "",
+  label = "",
+  dismiss = false,
+}) => {
   const [isOn, setIsOn] = useState(false);
 
   const handleToggle = () => {
@@ -12,33 +24,23 @@ const ToggleButton = ({ onIcon, offIcon, onToggle, onAction, title, id, stick, i
     if (newState && onAction) onAction();
   };
 
-  
-  var cssClasses;
-  const cssBaseClasses = "btn btn-primary toggle-button " + extraClass;
-
-  if(isOn) {
-    cssClasses = cssBaseClasses +  " on";
-  } else {
-    cssClasses = cssBaseClasses + " off";
-  }
-
-  if(stick) {
-    cssClasses = cssClasses + " stick";
-  } 
-
-  if(indicator) {
-    cssClasses = cssClasses + " indicator";
-  } 
-
+  useEffect(() => {
+    dismiss && setIsOn(false);
+  }, [dismiss]);
 
   return (
-    
     <span>
-     <div class='label'>{label}</div>
-    <button onClick={handleToggle} class={cssClasses} id={id}>
-      {isOn ? onIcon : offIcon}
-      {title}
-    </button>
+      <div class="label">{label}</div>
+      <button
+        onClick={handleToggle}
+        class={`btn btn-primary toggle-button ${isOn ? " on" : " off"} ${
+          stick && " stick"
+        } ${indicator && " indicator"} ${extraClass && extraClass}`}
+        id={id}
+      >
+        {isOn ? onIcon : offIcon}
+        {title}
+      </button>
     </span>
   );
 };
@@ -52,11 +54,11 @@ ToggleButton.propTypes = {
   id: PropTypes.string,
   stick: PropTypes.bool,
   indicator: PropTypes.bool,
-  extraClass: PropTypes.string
+  extraClass: PropTypes.string,
 };
 
 ToggleButton.defaultProps = {
-  title: '',
+  title: "",
 };
 
 export default ToggleButton;
