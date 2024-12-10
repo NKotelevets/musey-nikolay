@@ -490,7 +490,7 @@ const ChatComponent = ({
           <div id="lbl-instructions" class="label">
             <h1>Welkom</h1>
             <p>Je voert nu een gesprek met:</p>
-            <NameDisplay name={selectedAvatar.fullName} />
+            <NameDisplay name={selectedAvatar.name} />
             <p class="icon icon-mic">Als dit lampje groen is kun je spreken</p>
             <p class="icon icon-wait">
               Als dit lampje brandt moet je even wachten

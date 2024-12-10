@@ -1,46 +1,19 @@
 import React, { useState } from "react";
 import ChatComponent from "./ChatComponent"; // Adjust the path based on your file structure
-
-const avatarSettings = { avatars : [
-  {
-    fullName : "Lt. Ray Lanterman",
-    title : "D-Day veteraan",
-    id : "ray"
-  },
-  {
-    fullName : "Lena",
-    title : "kind in oorlog",
-    id : "lena"
-  },
-  {
-    fullName : "Lisa",
-    title : "agent",
-    id : "lisa"
-  },
-  {
-    fullName : "Hanneke Kompaan",
-    title : "verzetstrijder",
-    id : "hanneke"
-  },
-  {
-    fullName : "Abdelfattah",
-    title : "vluchteling",
-    id : "abdelfattah"
-  }
-]
-}
+import { BotsENLanguages, BotsNLLanguages, Languages } from "./Constants";
 
 var selectedAvatarId = 0;
-var selectedAvatar = avatarSettings.avatars[selectedAvatarId];
+//var selectedAvatar = avatarSettings.avatars[selectedAvatarId];
+var selectedAvatar = BotsNLLanguages[selectedAvatarId];
 
 const botConfig = {
   
-  botName: selectedAvatar.fullName,
-  composerPlaceholder: "Speak with "+selectedAvatar.fullName,
+  botName: selectedAvatar.name,
+  composerPlaceholder: "Speak with "+selectedAvatar.name,
   showPoweredBy: false,
   botAvatar:
     "https://files.bpcontent.cloud/2024/09/09/15/20240909151533-394Z5SY7.jpeg",
-  botDescription: "Praat met " + selectedAvatar.title + " " + selectedAvatar.fullName,
+  botDescription: "Praat met " + selectedAvatar.title + " " + selectedAvatar.name,
   email: {
     title: "randomEmail@boptress.com",
     link: "mailto:randomEmail@boptress.com",

@@ -34,6 +34,8 @@ const SelectPerson = ({
       localisation: temporarySelectionPerson.localisation,
       voiceName: speaker.voice,
     }));
+
+    console.log("CHANGE TO ",speaker.name)
     client.disconnect();
     const newClient = await getClient({ clientId: speaker.botPressId });
     setClient(newClient);
