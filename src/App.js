@@ -1,13 +1,46 @@
 import React, { useState } from "react";
 import ChatComponent from "./ChatComponent"; // Adjust the path based on your file structure
 
+const avatarSettings = { avatars : [
+  {
+    fullName : "Lt. Ray Lanterman",
+    title : "D-Day veteraan",
+    id : "ray"
+  },
+  {
+    fullName : "Lena",
+    title : "kind in oorlog",
+    id : "lena"
+  },
+  {
+    fullName : "Lisa",
+    title : "agent",
+    id : "lisa"
+  },
+  {
+    fullName : "Hanneke Kompaan",
+    title : "verzetstrijder",
+    id : "hanneke"
+  },
+  {
+    fullName : "Abdelfattah",
+    title : "vluchteling",
+    id : "abdelfattah"
+  }
+]
+}
+
+var selectedAvatarId = 0;
+var selectedAvatar = avatarSettings.avatars[selectedAvatarId];
+
 const botConfig = {
-  composerPlaceholder: "Speak with Lieutenant Ray",
-  botName: "Lieutenant Ray",
+  
+  botName: selectedAvatar.fullName,
+  composerPlaceholder: "Speak with "+selectedAvatar.fullName,
   showPoweredBy: false,
   botAvatar:
     "https://files.bpcontent.cloud/2024/09/09/15/20240909151533-394Z5SY7.jpeg",
-  botDescription: "Praat met D-Day veteraan Lt. Ray Lanterman",
+  botDescription: "Praat met " + selectedAvatar.title + " " + selectedAvatar.fullName,
   email: {
     title: "randomEmail@boptress.com",
     link: "mailto:randomEmail@boptress.com",
@@ -47,8 +80,10 @@ const App = () => {
     localisation: localisation,
     voiceName: voiceName,
     subscriptionKey: subscriptionKey,
-    region: region,
+    region: region
   });
+
+
 
   return (
     <div>
@@ -61,6 +96,7 @@ const App = () => {
         region={botpressConfigs.region}
         desiredDuration={desiredDuration}
         setBotpressConfigs={setBotpressConfigs}
+        selectedAvatar={selectedAvatar}
       />
     </div>
   );

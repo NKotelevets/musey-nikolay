@@ -43,6 +43,7 @@ const ChatComponent = ({
   region,
   desiredDuration,
   setBotpressConfigs,
+  selectedAvatar
 }) => {
   let keyboard;
   const audioRef = useRef(null);
@@ -65,6 +66,9 @@ const ChatComponent = ({
     playbackQueue: [],
     active: false,
   });
+
+ 
+    console.log("SELECTED AVATAR",selectedAvatar)
 
   const [statusText, setStatusText] = useState(
     "INITIALIZED: ready to test speech..."
@@ -151,7 +155,7 @@ const ChatComponent = ({
     return () => keyboard.destroy();
   }, []);
 
-  const videoUrl = "./video/RayNLIntro.mp4";
+  
 
   const [isOn, setIsOn] = useState(false);
 
@@ -437,14 +441,19 @@ const ChatComponent = ({
     }
   };
 
+
+
+  var videoState = (!!confPlaybackQueue.audioSrc ? "talk" : "idle")
+
   return (
     <div className="container app-container">
       <div className="row main-container ">
         <div className="col-6 screen">
           <div id="screen">
             <VideoPlayer
-              videoSrc={videoUrl}
-              play={!!confPlaybackQueue.audioSrc}
+              avatar={selectedAvatar.id}
+              state={videoState}
+              language={confPlaybackQueue.playbackQueue[0]?.language}
             />
             <div id="subtitles">
               {confPlaybackQueue?.playbackQueue?.length
@@ -481,7 +490,7 @@ const ChatComponent = ({
           <div id="lbl-instructions" class="label">
             <h1>Welkom</h1>
             <p>Je voert nu een gesprek met:</p>
-            <NameDisplay name={"smurf"} />
+            <NameDisplay name={selectedAvatar.fullName} />
             <p class="icon icon-mic">Als dit lampje groen is kun je spreken</p>
             <p class="icon icon-wait">
               Als dit lampje brandt moet je even wachten
