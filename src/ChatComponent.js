@@ -92,7 +92,10 @@ const ChatComponent = ({
         confPlaybackQueue.playbackQueue[0]?.language === "nl"
           ? "nl-NL"
           : "en-US";
-
+      setConfPlaybackQueue((prev) => ({
+        ...prev,
+        active: true,
+      }));
       textToSpeech(
         confPlaybackQueue.playbackQueue[0].ttsMessage,
         localisationEvent,
@@ -173,6 +176,10 @@ const ChatComponent = ({
   const sendToFunction = (value) => {
     console.log("Textarea value:", value);
     // Perform any action with the value
+    setConfPlaybackQueue((prev) => ({
+      ...prev,
+      active: true,
+    }));
     textToSpeech(value);
   };
 
@@ -351,8 +358,20 @@ const ChatComponent = ({
       audioConfig
     );
 
+    speechConfig.setProperty(
+      speechsdk.PropertyId.SpeechServiceConnection_EndSilenceTimeoutMs,
+      "1000"
+    );
+
+    speechConfig.setProperty(
+      speechsdk.PropertyId.Speech_SegmentationSilenceTimeoutMs,
+      "1000"
+    );
+
     speechRecognizer.recognizing = (sender, event) => {
       // Optionally update live as the speech is recognized
+      setIsListening(false);
+
       updateHtmlElement(`${event.result.text}`);
     };
 
@@ -397,7 +416,7 @@ const ChatComponent = ({
     clearSilenceTimer();
     silenceTimer.current = setTimeout(async () => {
       await handleSilence(currentText); // Handle silence after 2 seconds
-    }, 2000); // 2 seconds of silence
+    }, 1000); // 2 seconds of silence
   };
 
   // Clear the silence timer
