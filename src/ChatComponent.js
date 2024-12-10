@@ -223,9 +223,7 @@ const ChatComponent = ({
 
     const ssmlMessage = `
             <speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis" xml:lang="${localisation}">
-                <voice name="${voiceName}">
-                    ${textToSpeak}
-                </voice>
+                ${textToSpeak}
             </speak>
         `;
     console.log(ssmlMessage);
