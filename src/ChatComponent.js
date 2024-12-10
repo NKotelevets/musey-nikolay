@@ -19,7 +19,12 @@ import Keyboard from "simple-keyboard";
 import SelectPerson from "./components/SelectPerson";
 import "simple-keyboard/build/css/index.css";
 import * as test from "@botpress/webchat";
+
+
+
 const speechsdk = require("microsoft-cognitiveservices-speech-sdk");
+
+
 
 var urlParams = new URLSearchParams(window.location.search);
 var debug = urlParams.has("debug");
@@ -33,6 +38,8 @@ const { theme, style } = buildTheme({
   themeColor: "#634433",
 });
 
+var selectedAvatar;
+
 // Reusable ChatComponent
 const ChatComponent = ({
   botConfig,
@@ -43,7 +50,7 @@ const ChatComponent = ({
   region,
   desiredDuration,
   setBotpressConfigs,
-  selectedAvatar
+  startAvatar
 }) => {
   let keyboard;
   const audioRef = useRef(null);
@@ -67,8 +74,12 @@ const ChatComponent = ({
     active: false,
   });
 
+  if(selectedAvatar == null) {
+    selectedAvatar = startAvatar;
  
-    console.log("SELECTED AVATAR",selectedAvatar)
+    console.log("START AVATAR",selectedAvatar)
+  }
+
 
   const [statusText, setStatusText] = useState(
     "INITIALIZED: ready to test speech..."
@@ -285,7 +296,9 @@ const ChatComponent = ({
       }
     );
   };
-  const handleTogglePerson = (isOn) => {
+  const handleTogglePerson = (isOn, avatar) => {
+    selectedAvatar = avatar
+    console.log("SELECTED AVATAR",selectedAvatar)
     setSelectPerson(isOn);
   };
 

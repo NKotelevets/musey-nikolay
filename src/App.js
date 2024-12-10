@@ -69,7 +69,7 @@ const App = () => {
         region={botpressConfigs.region}
         desiredDuration={desiredDuration}
         setBotpressConfigs={setBotpressConfigs}
-        selectedAvatar={selectedAvatar}
+        startAvatar={selectedAvatar}
       />
     </div>
   );
