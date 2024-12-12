@@ -545,7 +545,7 @@ body:not(.subtitles) #screen #subtitles {
   position: relative;
 }
 
-.bpMessageContainer[data-direction="incoming"] .bpMessageBlocksBubble {
+/* .bpMessageContainer[data-direction="incoming"] .bpMessageBlocksBubble {
   color: inherit !important;
   font-family: inherit;
 }
@@ -563,7 +563,6 @@ body:not(.subtitles) #screen #subtitles {
   aspect-ratio: 1;
   padding: 6vh;
   display: flex;
-  /* justify-content: center; */
   flex-direction: column;
   align-content: center;
   mix-blend-mode: normal;
@@ -574,8 +573,8 @@ body:not(.subtitles) #screen #subtitles {
   width: var(--screen-size-netto);
   font-size: 3vh;
   line-height: 1.5;
-}
-.bpMessageContainer[data-direction="incoming"]:has(
+} */
+/* .bpMessageContainer[data-direction="incoming"]:has(
     .bpMessageBlocksRow
   ):last-of-type:before,
 .bpMessageContainer[data-direction="incoming"]:has(
@@ -596,9 +595,9 @@ body:not(.subtitles) #screen #subtitles {
   z-index: 20;
   mix-blend-mode: overlay;
   pointer-events: none;
-}
+} */
 
-.bpMessageContainer[data-direction="incoming"]:has(
+/* .bpMessageContainer[data-direction="incoming"]:has(
     .bpMessageBlocksRow
   ):last-of-type
   .bpMessageBlocksRow {
@@ -640,10 +639,10 @@ body:not(.subtitles) #screen #subtitles {
   button:hover {
   background-color: #ffbd0070;
   color: black;
-}
+} */
 
 /*** UI SCREEN ***/
-.bpMessageContainer[data-direction="incoming"]:last-of-type
+/* .bpMessageContainer[data-direction="incoming"]:last-of-type
   .bpMessageBlocksBubble {
   width: 100%;
   background: none !important;
@@ -657,9 +656,9 @@ body:not(.subtitles) #screen #subtitles {
   align-items: center;
   justify-content: center;
   align-content: center;
-}
+} */
 
-.bpMessageContainer[data-direction="incoming"]:last-of-type
+/* .bpMessageContainer[data-direction="incoming"]:last-of-type
   .bpMessageAvatarContainer {
   display: none !important;
 }
@@ -690,7 +689,7 @@ body:not(.subtitles) #screen #subtitles {
   border: 0 !important;
   mix-blend-mode: plus-lighter;
   opacity: 0.8;
-}
+} */
 
 /***KEYBOARD***/
 

@@ -19,12 +19,9 @@ import Keyboard from "simple-keyboard";
 import SelectPerson from "./components/SelectPerson";
 import "simple-keyboard/build/css/index.css";
 import * as test from "@botpress/webchat";
-
-
+import ChoiceComponent from "./components/ChoiceComponent";
 
 const speechsdk = require("microsoft-cognitiveservices-speech-sdk");
-
-
 
 var urlParams = new URLSearchParams(window.location.search);
 var debug = urlParams.has("debug");
@@ -50,7 +47,7 @@ const ChatComponent = ({
   region,
   desiredDuration,
   setBotpressConfigs,
-  startAvatar
+  startAvatar,
 }) => {
   let keyboard;
   const audioRef = useRef(null);
@@ -74,12 +71,12 @@ const ChatComponent = ({
     active: false,
   });
 
-  if(selectedAvatar == null) {
+  const [choice, setChoice] = useState(null);
+  if (selectedAvatar == null) {
     selectedAvatar = startAvatar;
- 
-    console.log("START AVATAR",selectedAvatar)
-  }
 
+    console.log("START AVATAR", selectedAvatar);
+  }
 
   const [statusText, setStatusText] = useState(
     "INITIALIZED: ready to test speech..."
@@ -108,6 +105,8 @@ const ChatComponent = ({
           ? "nl-NL"
           : "en-US";
 
+      confPlaybackQueue.playbackQueue[0]?.choice &&
+        setChoice(confPlaybackQueue.playbackQueue[0]?.choice);
       textToSpeech(
         confPlaybackQueue.playbackQueue[0].ttsMessage,
         localisationEvent,
@@ -165,8 +164,6 @@ const ChatComponent = ({
 
     return () => keyboard.destroy();
   }, []);
-
-  
 
   const [isOn, setIsOn] = useState(false);
 
@@ -297,8 +294,8 @@ const ChatComponent = ({
     );
   };
   const handleTogglePerson = (isOn, avatar) => {
-    selectedAvatar = avatar
-    console.log("SELECTED AVATAR",selectedAvatar)
+    selectedAvatar = avatar;
+    console.log("SELECTED AVATAR", selectedAvatar);
     setSelectPerson(isOn);
   };
 
@@ -454,9 +451,19 @@ const ChatComponent = ({
     }
   };
 
+  var videoState = !!confPlaybackQueue.audioSrc ? "talk" : "idle";
 
+  const selectOptionForChoice = (option) => {
+    setConfPlaybackQueue(() => ({
+      playbackQueue: [],
+      audioSrc: null,
+      active: false,
+      lastQuestion: true,
+    }));
+    setChoice(null);
 
-  var videoState = (!!confPlaybackQueue.audioSrc ? "talk" : "idle")
+    client.sendMessage(option);
+  };
 
   return (
     <div className="container app-container">
@@ -487,6 +494,13 @@ const ChatComponent = ({
               />
             )}
           </div>
+          {choice && (
+            <ChoiceComponent
+              title={choice.question_string}
+              options={choice.buttons}
+              selectOptionForChoice={(option) => selectOptionForChoice(option)}
+            />
+          )}
         </div>
 
         <div className="controls">
