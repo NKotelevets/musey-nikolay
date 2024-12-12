@@ -29,15 +29,18 @@ const SelectPerson = ({
         ...prev.botConfig,
         botName: speaker.name,
         composerPlaceholder: `Speak with ${speaker.name}`,
+        botDescription: "Praat met " + speaker.title + " " + speaker.name,
       },
       botClientId: speaker.botPressId,
       localisation: temporarySelectionPerson.localisation,
       voiceName: speaker.voice,
     }));
+
+    console.log("CHANGE TO ",speaker.name)
     client.disconnect();
     const newClient = await getClient({ clientId: speaker.botPressId });
     setClient(newClient);
-    handleTogglePerson(false);
+    handleTogglePerson(false, speaker);
     setTemporarySelectionPerson({
       speaker: "",
       localisation: "",

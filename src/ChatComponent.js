@@ -19,6 +19,8 @@ import Keyboard from "simple-keyboard";
 import SelectPerson from "./components/SelectPerson";
 import "simple-keyboard/build/css/index.css";
 import * as test from "@botpress/webchat";
+import ChoiceComponent from "./components/ChoiceComponent";
+
 const speechsdk = require("microsoft-cognitiveservices-speech-sdk");
 
 var urlParams = new URLSearchParams(window.location.search);
@@ -33,6 +35,8 @@ const { theme, style } = buildTheme({
   themeColor: "#634433",
 });
 
+var selectedAvatar;
+
 // Reusable ChatComponent
 const ChatComponent = ({
   botConfig,
@@ -43,6 +47,7 @@ const ChatComponent = ({
   region,
   desiredDuration,
   setBotpressConfigs,
+  startAvatar,
 }) => {
   let keyboard;
   const audioRef = useRef(null);
@@ -65,6 +70,13 @@ const ChatComponent = ({
     playbackQueue: [],
     active: false,
   });
+
+  const [choice, setChoice] = useState(null);
+  if (selectedAvatar == null) {
+    selectedAvatar = startAvatar;
+
+    console.log("START AVATAR", selectedAvatar);
+  }
 
   const [statusText, setStatusText] = useState(
     "INITIALIZED: ready to test speech..."
@@ -92,10 +104,14 @@ const ChatComponent = ({
         confPlaybackQueue.playbackQueue[0]?.language === "nl"
           ? "nl-NL"
           : "en-US";
-      setConfPlaybackQueue((prev) => ({
+
+      confPlaybackQueue.playbackQueue[0]?.choice &&
+        setChoice(confPlaybackQueue.playbackQueue[0]?.choice);
+          setConfPlaybackQueue((prev) => ({
         ...prev,
         active: true,
       }));
+
       textToSpeech(
         confPlaybackQueue.playbackQueue[0].ttsMessage,
         localisationEvent,
@@ -153,8 +169,6 @@ const ChatComponent = ({
 
     return () => keyboard.destroy();
   }, []);
-
-  const videoUrl = "./video/RayNLIntro.mp4";
 
   const [isOn, setIsOn] = useState(false);
 
@@ -288,7 +302,9 @@ const ChatComponent = ({
       }
     );
   };
-  const handleTogglePerson = (isOn) => {
+  const handleTogglePerson = (isOn, avatar) => {
+    selectedAvatar = avatar;
+    console.log("SELECTED AVATAR", selectedAvatar);
     setSelectPerson(isOn);
   };
 
@@ -456,14 +472,29 @@ const ChatComponent = ({
     }
   };
 
+  var videoState = !!confPlaybackQueue.audioSrc ? "talk" : "idle";
+
+  const selectOptionForChoice = (option) => {
+    setConfPlaybackQueue(() => ({
+      playbackQueue: [],
+      audioSrc: null,
+      active: false,
+      lastQuestion: true,
+    }));
+    setChoice(null);
+
+    client.sendMessage(option);
+  };
+
   return (
     <div className="container app-container">
       <div className="row main-container ">
         <div className="col-6 screen">
           <div id="screen">
             <VideoPlayer
-              videoSrc={videoUrl}
-              play={!!confPlaybackQueue.audioSrc}
+              avatar={selectedAvatar.id}
+              state={videoState}
+              language={confPlaybackQueue.playbackQueue[0]?.language}
             />
             <div id="subtitles">
               {confPlaybackQueue?.playbackQueue?.length
@@ -484,6 +515,13 @@ const ChatComponent = ({
               />
             )}
           </div>
+          {choice && (
+            <ChoiceComponent
+              title={choice.question_string}
+              options={choice.buttons}
+              selectOptionForChoice={(option) => selectOptionForChoice(option)}
+            />
+          )}
         </div>
 
         <div className="controls">
@@ -500,7 +538,7 @@ const ChatComponent = ({
           <div id="lbl-instructions" class="label">
             <h1>Welkom</h1>
             <p>Je voert nu een gesprek met:</p>
-            <NameDisplay name={"smurf"} />
+            <NameDisplay name={selectedAvatar.name} />
             <p class="icon icon-mic">Als dit lampje groen is kun je spreken</p>
             <p class="icon icon-wait">
               Als dit lampje brandt moet je even wachten

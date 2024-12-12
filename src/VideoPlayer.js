@@ -1,32 +1,55 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 
-const VideoPlayer = ({ videoSrc, play }) => {
-  console.log(play);
+
+const VideoPlayer = ({ avatar, state = "idle", language}) => {
+
+  console.log("VideoPlayer:" ,state, language);
+
+  var paramMuted = false
+  var paramLoop = false
+  
+  if(state == "talk") {
+      state = "outro";
+      paramMuted = true
+      
+  } else if (state == "idle") {
+    paramLoop = true
+  }
+  
+
+  var strLanguage = "";
+  if(language) {
+    strLanguage = "_"+language;
+  }
+
+  var videoSrc = "./video/ddex_"+ avatar + "_" + state +strLanguage+".mp4"
   return (
     <div className="video-player">
-      {play ? (
+      
         <video
+        
+
           width="100%"
           height="auto"
-          loop
+          
           autoPlay
-          poster={"./video/ray.png"}
+          poster={"./video/ddex_"+ avatar + ".jpg"}
           src={videoSrc}
-          muted
-        >
-          {/* <source src={videoSrc} type="video/mp4" /> */}
+          muted={(paramMuted ? " muted" : "")}
+          loop={(paramLoop ? " loop" : "")}
+        >  
           Your browser does not support the video tag.
         </video>
-      ) : (
-        <img src={"./video/ray.png"} />
-      )}
+     
+
     </div>
   );
 };
 
 VideoPlayer.propTypes = {
-  videoSrc: PropTypes.string.isRequired,
+  avatar: PropTypes.string.isRequired,
+  state: PropTypes.string
 };
 
 export default VideoPlayer;

@@ -1,13 +1,19 @@
 import React, { useState } from "react";
 import ChatComponent from "./ChatComponent"; // Adjust the path based on your file structure
+import { BotsENLanguages, BotsNLLanguages, Languages } from "./Constants";
+
+var selectedAvatarId = 0;
+//var selectedAvatar = avatarSettings.avatars[selectedAvatarId];
+var selectedAvatar = BotsNLLanguages[selectedAvatarId];
 
 const botConfig = {
-  composerPlaceholder: "Speak with Lieutenant Ray",
-  botName: "Lieutenant Ray",
+  
+  botName: selectedAvatar.name,
+  composerPlaceholder: "Speak with "+selectedAvatar.name,
   showPoweredBy: false,
   botAvatar:
     "https://files.bpcontent.cloud/2024/09/09/15/20240909151533-394Z5SY7.jpeg",
-  botDescription: "Praat met D-Day veteraan Lt. Ray Lanterman",
+  botDescription: "Praat met " + selectedAvatar.title + " " + selectedAvatar.name,
   email: {
     title: "randomEmail@boptress.com",
     link: "mailto:randomEmail@boptress.com",
@@ -47,8 +53,10 @@ const App = () => {
     localisation: localisation,
     voiceName: voiceName,
     subscriptionKey: subscriptionKey,
-    region: region,
+    region: region
   });
+
+
 
   return (
     <div>
@@ -61,6 +69,7 @@ const App = () => {
         region={botpressConfigs.region}
         desiredDuration={desiredDuration}
         setBotpressConfigs={setBotpressConfigs}
+        startAvatar={selectedAvatar}
       />
     </div>
   );
